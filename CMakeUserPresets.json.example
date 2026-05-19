@@ -1,0 +1,19 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "qt6-debug",
+      "inherit": "qt6-debug",
+      "cacheVariables": {
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/msvc2022_64"
+      }
+    },
+    {
+      "name": "qt6-release",
+      "inherit": "qt6-release",
+      "cacheVariables": {
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.8.2/msvc2022_64"
+      }
+    }
+  ]
+}

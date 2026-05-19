@@ -1,0 +1,73 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 20,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "qt6-debug",
+      "displayName": "Qt 6 Debug (Qt Creator)",
+      "description": "Domyslna konfiguracja pod Qt Creator na Windows.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_STANDARD": "17",
+        "CMAKE_PREFIX_PATH": "$penv{CMAKE_PREFIX_PATH}"
+      }
+    },
+    {
+      "name": "qt6-release",
+      "displayName": "Qt 6 Release (Qt Creator)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CXX_STANDARD": "17",
+        "CMAKE_PREFIX_PATH": "$penv{CMAKE_PREFIX_PATH}"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "qt6-debug-build",
+      "displayName": "Build Debug",
+      "configurePreset": "qt6-debug",
+      "targets": ["zaba_na_ulicy"]
+    },
+    {
+      "name": "qt6-release-build",
+      "displayName": "Build Release",
+      "configurePreset": "qt6-release",
+      "targets": ["zaba_na_ulicy"]
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "qt6-debug-test",
+      "displayName": "Testy logiki",
+      "configurePreset": "qt6-debug",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ],
+  "workflowPresets": [
+    {
+      "name": "qt6-debug-run",
+      "displayName": "Skonfiguruj, zbuduj i uruchom gre",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "qt6-debug"
+        },
+        {
+          "type": "build",
+          "name": "qt6-debug-build"
+        }
+      ]
+    }
+  ]
+}
