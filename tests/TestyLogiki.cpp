@@ -1,12 +1,18 @@
+// Dolaczamy glowna logike gry do testowania.
 #include "Gra.h"
+// Dolaczamy funkcje pomocnicze ustawien poziomu.
 #include "UstawieniaTrudnosci.h"
 
+// Dolaczamy std::exit do natychmiastowego zakonczenia testu przy bledzie.
 #include <cstdlib>
+// Dolaczamy strumien bledow i wyjscia.
 #include <iostream>
+// Dolaczamy std::string do opisow bledow.
 #include <string>
 
 namespace {
 
+// Pomocnicza asercja: konczy program, gdy warunek jest falszywy.
 void oczekuj(bool warunek, const std::string& wiadomosc) {
     if (!warunek) {
         std::cerr << "BLAD TESTU: " << wiadomosc << "\n";
@@ -14,6 +20,7 @@ void oczekuj(bool warunek, const std::string& wiadomosc) {
     }
 }
 
+// Test sprawdza podstawowe parametry poziomow trudnosci.
 void testUstawienTrudnosci() {
     const UstawieniaTrudnosci latwy = pobierzUstawieniaTrudnosci(PoziomTrudnosci::LATWY);
     const UstawieniaTrudnosci sredni = pobierzUstawieniaTrudnosci(PoziomTrudnosci::SREDNI);
@@ -27,6 +34,7 @@ void testUstawienTrudnosci() {
             "Predkosc samochodow powinna rosnac wraz z trudnoscia");
 }
 
+// Test sprawdza, czy zaba nie moze wyjsc poza plansze.
 void testRuchuZabyIGranicPlanszy() {
     Gra gra;
     gra.rozpocznijGre(PoziomTrudnosci::LATWY);
@@ -44,6 +52,7 @@ void testRuchuZabyIGranicPlanszy() {
     oczekuj(gra.pobierzZabe().pobierzPozycje().pobierzX() == 0, "Zaba wyszla poza lewa granice");
 }
 
+// Test sprawdza, czy na trawie nie dochodzi do falszywej kolizji.
 void testBrakKolizjiNaTrawie() {
     Gra gra;
     gra.rozpocznijGre(PoziomTrudnosci::LATWY);
@@ -59,6 +68,7 @@ void testBrakKolizjiNaTrawie() {
             "Na trawie nie powinna pojawiac sie przegrana bez kontaktu z autem");
 }
 
+// Test sprawdza, czy wygrana pojawia sie dopiero na wierszu mety.
 void testWarunkuWygranej() {
     const UstawieniaTrudnosci latwy = pobierzUstawieniaTrudnosci(PoziomTrudnosci::LATWY);
     const UstawieniaTrudnosci sredni = pobierzUstawieniaTrudnosci(PoziomTrudnosci::SREDNI);
@@ -96,6 +106,7 @@ void testWarunkuWygranej() {
 
 }  // namespace
 
+// Punkt startowy testow uruchamianych przez CTest.
 int main() {
     testUstawienTrudnosci();
     testRuchuZabyIGranicPlanszy();

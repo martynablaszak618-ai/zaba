@@ -1,12 +1,20 @@
+// Dolaczamy deklaracje klasy interfejsu graficznego.
 #include "InterfejsGraficzny.h"
 
+// Funkcje pomocnicze STL.
 #include <algorithm>
+// Qt: obsluga czcionek.
 #include <QFont>
+// Qt: obsluga zdarzen klawiatury.
 #include <QKeyEvent>
+// Qt: gradienty tla i przyciskow.
 #include <QLinearGradient>
+// Qt: obsluga zdarzen myszy.
 #include <QMouseEvent>
+// Qt: narzedzie rysujace.
 #include <QPainter>
 
+// Konstruktor przygotowuje okno, przyciski i petle odswiezania.
 InterfejsGraficzny::InterfejsGraficzny(QWidget* rodzic) : QWidget(rodzic) {
     setWindowTitle(QStringLiteral("Żaba na ulicy - Qt GUI"));
     setFixedSize(960, 720);
@@ -28,6 +36,7 @@ InterfejsGraficzny::InterfejsGraficzny(QWidget* rodzic) : QWidget(rodzic) {
     zegarKlatek.start();
 }
 
+// Qt wywoluje te metode przy kazdym odrysowaniu okna.
 void InterfejsGraficzny::paintEvent(QPaintEvent* zdarzenie) {
     (void)zdarzenie;
     QPainter rysownik(this);
@@ -43,6 +52,7 @@ void InterfejsGraficzny::paintEvent(QPaintEvent* zdarzenie) {
     }
 }
 
+// Obsluguje klikniecia myszy w menu i na ekranie koncowym.
 void InterfejsGraficzny::mousePressEvent(QMouseEvent* zdarzenie) {
     if (zdarzenie->button() != Qt::LeftButton) {
         return;
@@ -65,6 +75,7 @@ void InterfejsGraficzny::mousePressEvent(QMouseEvent* zdarzenie) {
     update();
 }
 
+// Obsluguje sterowanie klawiatura podczas gry.
 void InterfejsGraficzny::keyPressEvent(QKeyEvent* zdarzenie) {
     if (gra.pobierzStan() != StanGry::W_TRAKCIE) {
         QWidget::keyPressEvent(zdarzenie);
@@ -87,6 +98,7 @@ void InterfejsGraficzny::keyPressEvent(QKeyEvent* zdarzenie) {
     update();
 }
 
+// Wywolywane przez timer: liczy delta czasu i aktualizuje logike gry.
 void InterfejsGraficzny::odswiezSymulacje() {
     // Obliczamy delta i aktualizujemy silnik gry co bardzo krotki krok czasu.
     const qint64 ms = zegarKlatek.restart();
@@ -95,6 +107,7 @@ void InterfejsGraficzny::odswiezSymulacje() {
     update();
 }
 
+// Rysuje ekran menu wraz z przyciskami poziomow.
 void InterfejsGraficzny::rysujMenu(QPainter& rysownik) {
     QLinearGradient tlo(0, 0, 0, height());
     tlo.setColorAt(0.0, QColor(26, 34, 44));
@@ -114,6 +127,7 @@ void InterfejsGraficzny::rysujMenu(QPainter& rysownik) {
     rysujPrzycisk(rysownik, przyciskTrudny, "Trudny");
 }
 
+// Rysuje cala aktywna scene gry: tlo, pasy, auta, abe i pasek statusu.
 void InterfejsGraficzny::rysujRozgrywke(QPainter& rysownik) {
     const float rozmiarPola = gra.pobierzRozmiarPola();
     const int rozmiarPolaInt = static_cast<int>(rozmiarPola);
@@ -247,6 +261,7 @@ void InterfejsGraficzny::rysujRozgrywke(QPainter& rysownik) {
     rysownik.drawText(QRect(18, 676, width() - 36, 28), Qt::AlignLeft | Qt::AlignVCenter, status);
 }
 
+// Rysuje polprzezroczysta nakladke koncowa z wynikiem gry.
 void InterfejsGraficzny::rysujEkranKoncowy(QPainter& rysownik, bool czyWygrana) {
     rysownik.fillRect(rect(), QColor(19, 24, 34, 185));
     rysownik.setFont(QFont(font().family(), 44, QFont::Bold));
@@ -263,6 +278,7 @@ void InterfejsGraficzny::rysujEkranKoncowy(QPainter& rysownik, bool czyWygrana) 
     rysujPrzycisk(rysownik, przyciskPowrot, QStringLiteral("Powrót do menu"));
 }
 
+// Rysuje pojedynczy przycisk o wspolnym stylu.
 void InterfejsGraficzny::rysujPrzycisk(QPainter& rysownik, const QRect& przycisk, const QString& tekst) {
     QLinearGradient gradient(przycisk.topLeft(), przycisk.bottomLeft());
     gradient.setColorAt(0.0, QColor(111, 152, 236));
@@ -275,6 +291,7 @@ void InterfejsGraficzny::rysujPrzycisk(QPainter& rysownik, const QRect& przycisk
     rysownik.drawText(przycisk, Qt::AlignCenter, tekst);
 }
 
+// Zamienia enum poziomu trudnosci na czytelny tekst.
 QString InterfejsGraficzny::tekstPoziomu(PoziomTrudnosci poziom) const {
     switch (poziom) {
         case PoziomTrudnosci::LATWY:

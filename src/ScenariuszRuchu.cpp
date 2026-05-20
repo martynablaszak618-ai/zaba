@@ -1,11 +1,17 @@
+// Dolaczamy deklaracje struktury i funkcji scenariusza ruchu.
 #include "ScenariuszRuchu.h"
 
+// Funkcja losuje i konfiguruje jeden scenariusz ruchu samochodow.
 ScenariuszRuchu wylosujScenariusz(std::mt19937& generator, PoziomTrudnosci poziom) {
+    // Losujemy numer scenariusza od 0 do 4.
     std::uniform_int_distribution<int> wybor(0, 4);
 
+    // Tworzymy pusty scenariusz z wartosciami domyslnymi.
     ScenariuszRuchu scenariusz;
+    // Przypisujemy wylosowany identyfikator.
     scenariusz.identyfikator = wybor(generator);
 
+    // Ustawiamy parametry zaleznie od wylosowanego identyfikatora.
     switch (scenariusz.identyfikator) {
         case 0:
             scenariusz.nazwa = "Ruch umiarkowany";
@@ -42,6 +48,7 @@ ScenariuszRuchu wylosujScenariusz(std::mt19937& generator, PoziomTrudnosci pozio
             scenariusz.maksOpoznienieFazy = 1.2f;
             break;
         default:
+            // Domyslnie: najbardziej zmienny scenariusz.
             scenariusz.nazwa = "Ruch zmienny";
             scenariusz.mnoznikPredkosci = 1.12f;
             scenariusz.mnoznikInterwalu = 0.95f;
@@ -52,13 +59,17 @@ ScenariuszRuchu wylosujScenariusz(std::mt19937& generator, PoziomTrudnosci pozio
             break;
     }
 
+    // Dodatkowa korekta pod poziom trudnosci.
     if (poziom == PoziomTrudnosci::TRUDNY) {
+        // Trudny: delikatnie szybciej i czesciej.
         scenariusz.mnoznikPredkosci *= 1.05f;
         scenariusz.mnoznikInterwalu *= 0.94f;
     } else if (poziom == PoziomTrudnosci::LATWY) {
+        // Latwy: delikatnie wolniej i rzadziej.
         scenariusz.mnoznikPredkosci *= 0.94f;
         scenariusz.mnoznikInterwalu *= 1.06f;
     }
 
+    // Zwracamy gotowy scenariusz.
     return scenariusz;
 }
