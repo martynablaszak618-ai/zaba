@@ -1,0 +1,29 @@
+# Katalogi budowania CMake / Qt Creator
+build/
+cmake-build-*/
+
+# Pliki uzytkownika Qt Creator (sciezki lokalne)
+CMakeLists.txt.user
+*.user
+*.user.*
+
+# Wygenerowane pliki kompilatora i linkera
+*.o
+*.obj
+*.exe
+*.dll
+*.a
+*.lib
+*.pdb
+*.ilk
+
+# Foldery tymczasowe IDE
+.qtc_clangd/
+.cache/
+
+# System Windows
+Thumbs.db
+Desktop.ini
+
+# macOS (gdyby ktos klonowal na Macu)
+.DS_Store
