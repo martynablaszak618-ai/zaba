@@ -3,8 +3,6 @@
 
 // Dolaczamy klase Droga (zarzadzanie pasami i autami).
 #include "Droga.h"
-// Dolaczamy strukture scenariusza ruchu.
-#include "ScenariuszRuchu.h"
 // Dolaczamy podstawowe typy enum (stan, trudnosc, kierunek).
 #include "Typy.h"
 // Dolaczamy konfiguracje poziomu.
@@ -13,9 +11,9 @@
 #include "WykrywaczKolizji.h"
 // Dolaczamy klase gracza (zaby).
 #include "Zaba.h"
-// Dolaczamy licznik czasu rozgrywki.
-#include "ZegarGry.h"
 
+// Dolaczamy pomiar czasu rozgrywki (wczesniej osobna klasa ZegarGry).
+#include <chrono>
 // Dolaczamy generator liczb losowych.
 #include <random>
 
@@ -29,11 +27,8 @@ public:
     // Wraca do menu glownego.
     void przejdzDoMenu();
 
-    // Metody ruchu wywolywane po nacisnieciu klawiszy sterowania.
-    void ruchWGore();
-    void ruchWDol();
-    void ruchWLewo();
-    void ruchWPrawo();
+    // Przesuwa zabe o jedno pole: dx/dy to kierunek (np. 0,1 = gora, -1,0 = lewo).
+    void ruch(int dx, int dy);
 
     // Aktualizuje swiat gry o krok czasu (deltaSekundy).
     void aktualizujKrok(float deltaSekundy);
@@ -54,14 +49,16 @@ public:
     int pobierzWysokoscSiatki() const;
     // Zwraca rozmiar jednego pola planszy w pikselach.
     float pobierzRozmiarPola() const;
-    // Zwraca nazwe aktualnie aktywnego scenariusza ruchu.
-    const std::string& pobierzNazweScenariusza() const;
 
 private:
     // Sprawdza, czy nastapila kolizja albo warunek wygranej.
     void sprawdzWarunkiKonca();
     // Konczy "oczekujaca" wygrana po dodatkowej klatce.
     void finalizujOczekujacaWygrana();
+    // Rozpoczyna pomiar czasu gry.
+    void uruchomZegar();
+    // Zatrzymuje pomiar czasu gry.
+    void zatrzymajZegar();
 
     // Aktualny stan aplikacji.
     StanGry stan = StanGry::MENU;
@@ -75,8 +72,13 @@ private:
     Droga droga;
     // Narzedzie do sprawdzania kolizji.
     WykrywaczKolizji wykrywaczKolizji;
-    // Zegar gry.
-    ZegarGry zegar;
+
+    // Znacznik chwili startu rozgrywki (logika zegara w klasie Gra).
+    std::chrono::steady_clock::time_point startCzasu = std::chrono::steady_clock::now();
+    // Znacznik chwili zatrzymania zegara.
+    std::chrono::steady_clock::time_point czasZatrzymania = std::chrono::steady_clock::now();
+    // Flaga: czy zegar jest juz zatrzymany.
+    bool zegarZatrzymany = false;
 
     // Liczba kolumn planszy.
     int szerokoscSiatki = 16;
@@ -86,8 +88,6 @@ private:
     std::mt19937 generator;
     // Rozmiar jednego pola planszy w pikselach.
     float rozmiarPola = 60.0f;
-    // Aktualny scenariusz ruchu aut.
-    ScenariuszRuchu scenariuszRuchu{};
     // Flaga opozniajaca ekran wygranej o jedna klatke.
     bool czekaNaKlatkeMety = false;
 };

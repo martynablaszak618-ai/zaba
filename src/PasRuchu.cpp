@@ -6,6 +6,16 @@
 // Dolaczamy funkcje matematyczne (np. std::abs).
 #include <cmath>
 
+// Uproszczone stale ruchu aut (wczesniej byly w losowanym scenariuszu).
+namespace {
+// Minimalny mnoznik chwilowej predkosci aut.
+constexpr float MIN_GESTOSC_RUCHU = 0.75f;
+// Maksymalny mnoznik chwilowej predkosci aut.
+constexpr float MAX_GESTOSC_RUCHU = 1.35f;
+// Maksymalne opoznienie fazy startu pasa (w sekundach).
+constexpr float MAKS_OPOZNIENIE_FAZY = 0.5f;
+}  // namespace
+
 // Konstruktor ustawia wszystkie parametry jednego pasa.
 PasRuchu::PasRuchu(float yPasa,
                    Kierunek kierunek,
@@ -15,25 +25,23 @@ PasRuchu::PasRuchu(float yPasa,
                    float minimalnyOdstepAut,
                    int autaNaStarcieMinParam,
                    int autaNaStarcieMaxParam,
-                   int maksAutNaPasieParam,
-                   const ScenariuszRuchu& scenariusz)
+                   int maksAutNaPasieParam)
     : y(yPasa),
       kierunekRuchu(kierunek),
-      predkoscSamochodow(predkoscAut * scenariusz.mnoznikPredkosci),
-      interwalSpawnu(interwalTworzeniaAut * scenariusz.mnoznikInterwalu),
+      predkoscSamochodow(predkoscAut),
+      interwalSpawnu(interwalTworzeniaAut),
       szerokoscPlanszy(szerokoscPlanszyPiksele),
-      licznikDoSpawnu(interwalTworzeniaAut * scenariusz.mnoznikInterwalu),
+      licznikDoSpawnu(interwalTworzeniaAut),
       minimalnyOdstep(minimalnyOdstepAut),
       autaStartMin(autaNaStarcieMinParam),
       autaStartMax(autaNaStarcieMaxParam),
-      maksAutNaPasie(std::max(2, maksAutNaPasieParam)),
-      scenariuszRuchu(scenariusz) {}
+      maksAutNaPasie(std::max(2, maksAutNaPasieParam)) {}
 
 // Aktualizuje ruch i spawn aut na pasie.
 void PasRuchu::aktualizuj(float deltaSekundy, std::mt19937& generator) {
     // Przy pierwszym wywolaniu przygotowujemy faze startowa.
     if (!czyRuchStartowyZrobiony) {
-        std::uniform_real_distribution<float> losFaza(0.0f, scenariuszRuchu.maksOpoznienieFazy);
+        std::uniform_real_distribution<float> losFaza(0.0f, MAKS_OPOZNIENIE_FAZY);
         licznikDoSpawnu = interwalSpawnu * losFaza(generator);
         dodajRuchPoczatkowy(generator);
         czyRuchStartowyZrobiony = true;
@@ -50,8 +58,7 @@ void PasRuchu::aktualizuj(float deltaSekundy, std::mt19937& generator) {
     // Co pewien czas losowo zmieniamy gestosc ruchu.
     czasDoZmianyGestosci -= deltaSekundy;
     if (czasDoZmianyGestosci <= 0.0f) {
-        std::uniform_real_distribution<float> losGestosc(scenariuszRuchu.minGestosc,
-                                                           scenariuszRuchu.maxGestosc);
+        std::uniform_real_distribution<float> losGestosc(MIN_GESTOSC_RUCHU, MAX_GESTOSC_RUCHU);
         std::uniform_real_distribution<float> losCzas(0.9f, 1.8f);
         wspolczynnikGestosciRuchu = losGestosc(generator);
         czasDoZmianyGestosci = losCzas(generator);

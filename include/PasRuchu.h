@@ -3,8 +3,6 @@
 
 // Dolaczamy definicje klasy Samochod.
 #include "Samochod.h"
-// Dolaczamy definicje struktury ScenariuszRuchu.
-#include "ScenariuszRuchu.h"
 
 // Biblioteka do losowania.
 #include <random>
@@ -14,7 +12,7 @@
 // Klasa opisuje jeden pas ruchu i zarzadza autami na tym pasie.
 class PasRuchu {
 public:
-    // Konstruktor tworzy pas z pelna konfiguracja ruchu.
+    // Konstruktor tworzy pas z pelna konfiguracja ruchu (parametry z poziomu trudnosci).
     PasRuchu(float yPasa,
              Kierunek kierunek,
              float predkoscAut,
@@ -23,8 +21,7 @@ public:
              float minimalnyOdstepAut,
              int autaNaStarcieMin,
              int autaNaStarcieMax,
-             int maksAutNaPasie,
-             const ScenariuszRuchu& scenariusz);
+             int maksAutNaPasie);
 
     // Aktualizuje caly pas: ruch, gestosc, spawn, porzadkowanie pozycji.
     void aktualizuj(float deltaSekundy, std::mt19937& generator);
@@ -81,8 +78,6 @@ private:
     float wspolczynnikGestosciRuchu = 1.0f;
     // Ile czasu zostalo do kolejnej zmiany gestosci.
     float czasDoZmianyGestosci = 1.4f;
-    // Kopia scenariusza ruchu dla tego pasa.
-    ScenariuszRuchu scenariuszRuchu{};
     // Lista wszystkich aut znajdujacych sie na pasie.
     std::vector<Samochod> samochody;
 };

@@ -8,7 +8,7 @@ Gra dziala w oknie GUI (Qt Widgets) i realizuje wymagania projektu:
 - ekran koncowy z przyciskiem powrotu do menu.
 
 ## Uklad poziomow
-- `Latwy`: 2 ulice (2 pasy + 2 pasy), umiarkowany ruch i wyrazna losowosc.
+- `Latwy`: 2 ulice (2 pasy + 2 pasy), umiarkowany ruch.
 - `Sredni`: 2 drogi po 4 pasy, pomiedzy nimi bezpieczna strefa trawy (`safe space`).
 - `Trudny`: 2 drogi po 6 pasow, wiecej aut i wyzsza dynamika ruchu.
 
@@ -22,8 +22,8 @@ nie powinny najezdzac na siebie na tym samym pasie.
 - `Zaba.h/.cpp`, `Samochod.h/.cpp`, `PasRuchu.h/.cpp`, `Droga.h/.cpp` - model i ruch obiektow.
 - `WykrywaczKolizji.h/.cpp` - sprawdzanie zderzen.
 - `UstawieniaTrudnosci.h/.cpp` - parametry poziomow.
-- `ZegarGry.h/.cpp` - licznik czasu.
-- `Pozycja.h/.cpp`, `Typy.h` - typy pomocnicze i enumy.
+- `Typy.h` - enumy (stan gry, trudnosc, kierunek).
+- Licznik czasu jest w `Gra` (bez osobnego pliku).
 
 ## Budowanie i uruchamianie
 Wymagane: zainstalowane Qt 6 (modul `Widgets`).

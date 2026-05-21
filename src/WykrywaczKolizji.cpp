@@ -19,7 +19,7 @@ bool WykrywaczKolizji::czyJestKolizja(const Zaba& zaba,
     (void)wysokoscSiatki;
 
     // Pobieramy wiersz, na ktorym stoi zaba.
-    const int wierszZaby = zaba.pobierzPozycje().pobierzY();
+    const int wierszZaby = zaba.pobierzY();
     // Jesli zaba nie stoi na drodze, to nie moze byc kolizji z autem.
     if (!czyWierszJestPasem(wierszZaby, ustawienia)) {
         return false;
@@ -27,7 +27,7 @@ bool WykrywaczKolizji::czyJestKolizja(const Zaba& zaba,
 
     // Obliczamy srodek zaby w pikselach w osi X.
     const float srodekZabyX =
-        (static_cast<float>(zaba.pobierzPozycje().pobierzX()) + 0.5f) * rozmiarPola;
+        (static_cast<float>(zaba.pobierzX()) + 0.5f) * rozmiarPola;
     // Ustalony "polpromien" zaby do prostego testu nakladania.
     const float polowaSzerokosciZaby = rozmiarPola * 0.16f;
     // Ustalony "polpromien" auta do prostego testu nakladania.

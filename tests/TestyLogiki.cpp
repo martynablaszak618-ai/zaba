@@ -41,15 +41,15 @@ void testRuchuZabyIGranicPlanszy() {
 
     // Ruch do dolu od dolnej granicy nie moze zejsc ponizej planszy.
     for (int i = 0; i < 10; ++i) {
-        gra.ruchWDol();
+        gra.ruch(0, -1);
     }
-    oczekuj(gra.pobierzZabe().pobierzPozycje().pobierzY() == 0, "Zaba zeszla ponizej planszy");
+    oczekuj(gra.pobierzZabe().pobierzY() == 0, "Zaba zeszla ponizej planszy");
 
     // Ruch do lewej od lewej granicy nie moze zejsc poza plansze.
     for (int i = 0; i < 100; ++i) {
-        gra.ruchWLewo();
+        gra.ruch(-1, 0);
     }
-    oczekuj(gra.pobierzZabe().pobierzPozycje().pobierzX() == 0, "Zaba wyszla poza lewa granice");
+    oczekuj(gra.pobierzZabe().pobierzX() == 0, "Zaba wyszla poza lewa granice");
 }
 
 // Test sprawdza, czy na trawie nie dochodzi do falszywej kolizji.
@@ -59,7 +59,7 @@ void testBrakKolizjiNaTrawie() {
 
     // Wiersz 3 to trawa miedzy dwiema ulicami (pasy: 1,2,4,5).
     for (int i = 0; i < 3; ++i) {
-        gra.ruchWGore();
+        gra.ruch(0, 1);
     }
     for (int i = 0; i < 120; ++i) {
         gra.aktualizujKrok(0.016f);
@@ -80,11 +80,11 @@ void testWarunkuWygranej() {
     Gra graLatwa;
     graLatwa.rozpocznijGre(PoziomTrudnosci::LATWY);
     for (int i = 0; i < ostatniPasLatwy; ++i) {
-        graLatwa.ruchWGore();
+        graLatwa.ruch(0, 1);
     }
     oczekuj(graLatwa.pobierzStan() == StanGry::W_TRAKCIE,
             "Latwy: na ostatnim pasie drogi nie powinno byc wygranej");
-    graLatwa.ruchWGore();
+    graLatwa.ruch(0, 1);
     graLatwa.aktualizujKrok(0.0f);
     oczekuj(graLatwa.pobierzStan() == StanGry::WYGRANA,
             "Latwy: wygrana na pierwszym zielonym polu za ostatnia droga");
@@ -92,15 +92,15 @@ void testWarunkuWygranej() {
     Gra graSrednia;
     graSrednia.rozpocznijGre(PoziomTrudnosci::SREDNI);
     for (int i = 0; i < ostatniPasSredni; ++i) {
-        graSrednia.ruchWGore();
+        graSrednia.ruch(0, 1);
     }
     oczekuj(graSrednia.pobierzStan() == StanGry::W_TRAKCIE,
             "Sredni: na ostatnim pasie drogi nie powinno byc wygranej");
-    graSrednia.ruchWGore();
+    graSrednia.ruch(0, 1);
     graSrednia.aktualizujKrok(0.0f);
     oczekuj(graSrednia.pobierzStan() == StanGry::WYGRANA,
             "Sredni: wygrana dopiero po wejsciu na zielony teren mety");
-    oczekuj(graSrednia.pobierzZabe().pobierzPozycje().pobierzY() == wierszMetySredni,
+    oczekuj(graSrednia.pobierzZabe().pobierzY() == wierszMetySredni,
             "Sredni: wygrana powinna byc na wierszu mety, nie na pasie drogi");
 }
 

@@ -82,15 +82,15 @@ void InterfejsGraficzny::keyPressEvent(QKeyEvent* zdarzenie) {
         return;
     }
 
-    // Sterowanie uproszczone: tylko W/A/S/D.
+    // Sterowanie uproszczone: tylko W/A/S/D (dx, dy = kierunek ruchu).
     if (zdarzenie->key() == Qt::Key_W) {
-        gra.ruchWGore();
+        gra.ruch(0, 1);
     } else if (zdarzenie->key() == Qt::Key_S) {
-        gra.ruchWDol();
+        gra.ruch(0, -1);
     } else if (zdarzenie->key() == Qt::Key_A) {
-        gra.ruchWLewo();
+        gra.ruch(-1, 0);
     } else if (zdarzenie->key() == Qt::Key_D) {
-        gra.ruchWPrawo();
+        gra.ruch(1, 0);
     } else if (zdarzenie->key() == Qt::Key_Escape) {
         gra.przejdzDoMenu();
     }
@@ -218,9 +218,10 @@ void InterfejsGraficzny::rysujRozgrywke(QPainter& rysownik) {
     rysownik.setClipping(false);
 
     // Zaba (korpus + oczy + lapy), zeby wygladala mniej jak kolo.
-    const Pozycja p = gra.pobierzZabe().pobierzPozycje();
-    const float x = (static_cast<float>(p.pobierzX()) + 0.5f) * rozmiarPola;
-    const float y = (static_cast<float>(ostatniWiersz - p.pobierzY()) + 0.5f) * rozmiarPola;
+    const int pozycjaX = gra.pobierzZabe().pobierzX();
+    const int pozycjaY = gra.pobierzZabe().pobierzY();
+    const float x = (static_cast<float>(pozycjaX) + 0.5f) * rozmiarPola;
+    const float y = (static_cast<float>(ostatniWiersz - pozycjaY) + 0.5f) * rozmiarPola;
     const float promienKorpusuX = std::max(14.0f, rozmiarPola * 0.22f);
     const float promienKorpusuY = std::max(11.0f, rozmiarPola * 0.18f);
     const float promienOka = std::max(4.0f, rozmiarPola * 0.06f);
@@ -254,9 +255,8 @@ void InterfejsGraficzny::rysujRozgrywke(QPainter& rysownik) {
     rysownik.setPen(QColor(234, 240, 243));
     rysownik.setFont(QFont(font().family(), 12));
     const QString status =
-        QString("Poziom: %1   |   Scenariusz: %2   |   Czas: %3 s   |   Sterowanie: W/A/S/D")
+        QString("Poziom: %1   |   Czas: %2 s   |   Sterowanie: W/A/S/D")
             .arg(tekstPoziomu(gra.pobierzPoziomTrudnosci()))
-            .arg(QString::fromStdString(gra.pobierzNazweScenariusza()))
             .arg(gra.pobierzCzasSekundy());
     rysownik.drawText(QRect(18, 676, width() - 36, 28), Qt::AlignLeft | Qt::AlignVCenter, status);
 }

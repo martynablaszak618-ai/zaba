@@ -19,17 +19,15 @@ void Gra::rozpocznijGre(PoziomTrudnosci poziom) {
     const float szerokoscPlanszy = static_cast<float>(szerokoscSiatki) * rozmiarPola;
     // Obliczamy wysokosc planszy w pikselach.
     const float wysokoscPlanszy = static_cast<float>(wysokoscSiatki) * rozmiarPola;
-    // Losujemy scenariusz ruchu samochodow na dana rozgrywke.
-    scenariuszRuchu = wylosujScenariusz(generator, poziom);
-    // Budujemy droge i pasy z pelnym zestawem parametrow.
-    droga.skonfiguruj(ustawienia, szerokoscPlanszy, wysokoscPlanszy, rozmiarPola, scenariuszRuchu);
+    // Budujemy droge i pasy (predkosc i spawn z ustawien poziomu trudnosci).
+    droga.skonfiguruj(ustawienia, szerokoscPlanszy, wysokoscPlanszy, rozmiarPola);
 
     // Ustawiamy abe na pozycji startowej (srodek dolnego wiersza).
     zaba.ustawPozycjeStartowa(szerokoscSiatki / 2, 0);
     // Czyscimy ewentualna flage oczekiwania na finalizacje wygranej.
     czekaNaKlatkeMety = false;
     // Uruchamiamy licznik czasu gry.
-    zegar.start();
+    uruchomZegar();
     // Przechodzimy do stanu aktywnej rozgrywki.
     stan = StanGry::W_TRAKCIE;
 }
@@ -42,56 +40,14 @@ void Gra::przejdzDoMenu() {
     stan = StanGry::MENU;
 }
 
-// Obsluguje ruch zaby o jedno pole w gore.
-void Gra::ruchWGore() {
+// Obsluguje ruch zaby o jedno pole w podanym kierunku (dx, dy).
+void Gra::ruch(int dx, int dy) {
     // Jesli gra nie trwa, ignorujemy sterowanie.
     if (stan != StanGry::W_TRAKCIE) {
         return;
     }
     // Przesuwamy abe.
-    zaba.ruchWGore(1);
-    // Pilnujemy granic planszy.
-    zaba.ograniczDoPlanszy(szerokoscSiatki, wysokoscSiatki);
-    // Po ruchu sprawdzamy warunki konca.
-    sprawdzWarunkiKonca();
-}
-
-// Obsluguje ruch zaby o jedno pole w dol.
-void Gra::ruchWDol() {
-    // Jesli gra nie trwa, ignorujemy sterowanie.
-    if (stan != StanGry::W_TRAKCIE) {
-        return;
-    }
-    // Przesuwamy abe.
-    zaba.ruchWDol(1);
-    // Pilnujemy granic planszy.
-    zaba.ograniczDoPlanszy(szerokoscSiatki, wysokoscSiatki);
-    // Po ruchu sprawdzamy warunki konca.
-    sprawdzWarunkiKonca();
-}
-
-// Obsluguje ruch zaby o jedno pole w lewo.
-void Gra::ruchWLewo() {
-    // Jesli gra nie trwa, ignorujemy sterowanie.
-    if (stan != StanGry::W_TRAKCIE) {
-        return;
-    }
-    // Przesuwamy abe.
-    zaba.ruchWLewo(1);
-    // Pilnujemy granic planszy.
-    zaba.ograniczDoPlanszy(szerokoscSiatki, wysokoscSiatki);
-    // Po ruchu sprawdzamy warunki konca.
-    sprawdzWarunkiKonca();
-}
-
-// Obsluguje ruch zaby o jedno pole w prawo.
-void Gra::ruchWPrawo() {
-    // Jesli gra nie trwa, ignorujemy sterowanie.
-    if (stan != StanGry::W_TRAKCIE) {
-        return;
-    }
-    // Przesuwamy abe.
-    zaba.ruchWPrawo(1);
+    zaba.ruch(dx, dy, 1);
     // Pilnujemy granic planszy.
     zaba.ograniczDoPlanszy(szerokoscSiatki, wysokoscSiatki);
     // Po ruchu sprawdzamy warunki konca.
@@ -130,12 +86,12 @@ void Gra::sprawdzWarunkiKonca() {
     if (wykrywaczKolizji.czyJestKolizja(zaba, droga, rozmiarPola, szerokoscSiatki, wysokoscSiatki,
                                         ustawienia)) {
         stan = StanGry::PRZEGRANA;
-        zegar.stop();
+        zatrzymajZegar();
         return;
     }
 
     // Pobieramy aktualny wiersz zaby.
-    const int wierszZaby = zaba.pobierzPozycje().pobierzY();
+    const int wierszZaby = zaba.pobierzY();
     // Pobieramy docelowy wiersz mety.
     const int wierszMety = pobierzWierszMety(ustawienia);
 
@@ -157,12 +113,26 @@ void Gra::finalizujOczekujacaWygrana() {
     // Ustawiamy stan wygranej.
     stan = StanGry::WYGRANA;
     // Zatrzymujemy licznik czasu.
-    zegar.stop();
+    zatrzymajZegar();
 }
 
-// Zwraca nazwe aktywnego scenariusza ruchu.
-const std::string& Gra::pobierzNazweScenariusza() const {
-    return scenariuszRuchu.nazwa;
+// Rozpoczyna pomiar czasu od aktualnej chwili.
+void Gra::uruchomZegar() {
+    // Zapamietujemy punkt startowy.
+    startCzasu = std::chrono::steady_clock::now();
+    // Flaga mowi, ze zegar znowu pracuje.
+    zegarZatrzymany = false;
+}
+
+// Zatrzymuje pomiar czasu.
+void Gra::zatrzymajZegar() {
+    // Zatrzymujemy tylko raz, zeby nie nadpisywac czasu zatrzymania.
+    if (!zegarZatrzymany) {
+        // Zapamietujemy moment stop.
+        czasZatrzymania = std::chrono::steady_clock::now();
+        // Flaga mowi, ze zegar jest zatrzymany.
+        zegarZatrzymany = true;
+    }
 }
 
 // Getter: zwraca aktualny stan gry.
@@ -178,7 +148,13 @@ const Zaba& Gra::pobierzZabe() const { return zaba; }
 const Droga& Gra::pobierzDroge() const { return droga; }
 
 // Getter: zwraca czas gry w sekundach.
-int Gra::pobierzCzasSekundy() const { return zegar.pobierzSekundy(); }
+int Gra::pobierzCzasSekundy() const {
+    // Jesli zegar stoi, koncem jest czas zatrzymania; w przeciwnym razie "teraz".
+    const auto koniec = zegarZatrzymany ? czasZatrzymania : std::chrono::steady_clock::now();
+    // Obliczamy roznice czasu i zamieniamy na cale sekundy.
+    return static_cast<int>(
+        std::chrono::duration_cast<std::chrono::seconds>(koniec - startCzasu).count());
+}
 
 // Getter: zwraca szerokosc planszy (w polach).
 int Gra::pobierzSzerokoscSiatki() const { return szerokoscSiatki; }

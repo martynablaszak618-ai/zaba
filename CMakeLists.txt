@@ -13,15 +13,12 @@ find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
 add_executable(zaba_na_ulicy
     src/main.cpp
-    src/Pozycja.cpp
     src/UstawieniaTrudnosci.cpp
-    src/ScenariuszRuchu.cpp
     src/Zaba.cpp
     src/Samochod.cpp
     src/PasRuchu.cpp
     src/Droga.cpp
     src/WykrywaczKolizji.cpp
-    src/ZegarGry.cpp
     src/InterfejsGraficzny.cpp
     src/Gra.cpp
 )
@@ -39,15 +36,12 @@ enable_testing()
 
 add_executable(testy_logiki
     tests/TestyLogiki.cpp
-    src/Pozycja.cpp
     src/UstawieniaTrudnosci.cpp
-    src/ScenariuszRuchu.cpp
     src/Zaba.cpp
     src/Samochod.cpp
     src/PasRuchu.cpp
     src/Droga.cpp
     src/WykrywaczKolizji.cpp
-    src/ZegarGry.cpp
     src/Gra.cpp
 )
 target_include_directories(testy_logiki PRIVATE include)
