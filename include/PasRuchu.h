@@ -1,4 +1,8 @@
-// Ta dyrektywa chroni przed wielokrotnym dolaczeniem pliku.
+/**
+ * @file PasRuchu.h
+ * @brief Jeden pas drogi — zarzadza ruchem i spawnem samochodow.
+ */
+
 #pragma once
 
 // Dolaczamy definicje klasy Samochod.
@@ -9,10 +13,10 @@
 // Biblioteka do dynamicznej listy samochodow.
 #include <vector>
 
-// Klasa opisuje jeden pas ruchu i zarzadza autami na tym pasie.
+/** @brief Pas ruchu z wieloma samochodami jadacymi w jednym kierunku. */
 class PasRuchu {
 public:
-    // Konstruktor tworzy pas z pelna konfiguracja ruchu (parametry z poziomu trudnosci).
+    /** @brief Tworzy pas z parametrami poziomu trudnosci. */
     PasRuchu(float yPasa,
              Kierunek kierunek,
              float predkoscAut,
@@ -23,13 +27,13 @@ public:
              int autaNaStarcieMax,
              int maksAutNaPasie);
 
-    // Aktualizuje caly pas: ruch, gestosc, spawn, porzadkowanie pozycji.
+  /** @brief Aktualizuje ruch aut, spawn i gestosc na pasie. */
     void aktualizuj(float deltaSekundy, std::mt19937& generator);
-    // Zwraca liste aut na pasie (tylko do odczytu).
+    /** @return Lista samochodow na pasie (tylko odczyt). */
     const std::vector<Samochod>& pobierzSamochody() const;
-    // Sprawdza, czy co najmniej jedno auto jest widoczne na ekranie.
+    /** @return true gdy na pasie jest widoczne auto. */
     bool czyPasMaWidoczneAuto() const;
-    // W razie pustki doklada auto, aby ruch byl ciagly.
+    /** @brief Doklada auto, gdy pas jest chwilowo pusty. */
     void utrzymijWidocznyRuch(std::mt19937& generator);
 
 private:

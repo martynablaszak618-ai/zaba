@@ -1,4 +1,8 @@
-// Ta dyrektywa pilnuje pojedynczego dolaczenia pliku naglowkowego.
+/**
+ * @file Gra.h
+ * @brief Glowna logika gry — niezalezna od warstwy graficznej Qt.
+ */
+
 #pragma once
 
 // Dolaczamy klase Droga (zarzadzanie pasami i autami).
@@ -17,37 +21,47 @@
 // Dolaczamy generator liczb losowych.
 #include <random>
 
-// Ta klasa to "serce" logiki gry, niezalezne od GUI.
+/**
+ * @brief Serce logiki gry — stan, zegar, ruch i warunki konca.
+ * @details Klasa nie uzywa Qt; moze byc testowana bez GUI (testy_logiki).
+ */
 class Gra {
 public:
-    // Konstruktor przygotowuje generator losowy i stan poczatkowy.
+    /** @brief Inicjalizuje generator losowy i stan MENU. */
     Gra();
-    // Startuje nowa gre na podanym poziomie trudnosci.
+    /** @brief Rozpoczyna nowa gre na wybranym poziomie trudnosci. */
     void rozpocznijGre(PoziomTrudnosci poziom);
-    // Wraca do menu glownego.
+    /** @brief Przechodzi do menu glownego. */
     void przejdzDoMenu();
 
-    // Przesuwa zabe o jedno pole: dx/dy to kierunek (np. 0,1 = gora, -1,0 = lewo).
+    /**
+     * @brief Przesuwa zabe o jedno pole.
+     * @param dx Kierunek poziomy (-1, 0, 1).
+     * @param dy Kierunek pionowy (1 = gora, -1 = dol).
+     */
     void ruch(int dx, int dy);
 
-    // Aktualizuje swiat gry o krok czasu (deltaSekundy).
+    /**
+     * @brief Aktualizuje symulacje o jedna klatke.
+     * @param deltaSekundy Czas od poprzedniej klatki [s].
+     */
     void aktualizujKrok(float deltaSekundy);
 
-    // Zwraca aktualny stan gry (menu/trwa/koniec).
+    /** @return Aktualny stan gry (MENU, W_TRAKCIE, WYGRANA, PRZEGRANA). */
     StanGry pobierzStan() const;
-    // Zwraca aktualny poziom trudnosci.
+    /** @return Wybrany poziom trudnosci. */
     PoziomTrudnosci pobierzPoziomTrudnosci() const;
-    // Zwraca obiekt zaby (tylko do odczytu).
+    /** @return Obiekt zaby (tylko odczyt). */
     const Zaba& pobierzZabe() const;
-    // Zwraca obiekt drogi (tylko do odczytu).
+    /** @return Obiekt drogi (tylko odczyt). */
     const Droga& pobierzDroge() const;
-    // Zwraca liczbe sekund rozgrywki.
+    /** @return Czas rozgrywki w sekundach. */
     int pobierzCzasSekundy() const;
-    // Zwraca liczbe kolumn planszy.
+    /** @return Liczba kolumn siatki. */
     int pobierzSzerokoscSiatki() const;
-    // Zwraca liczbe wierszy planszy.
+    /** @return Liczba wierszy siatki. */
     int pobierzWysokoscSiatki() const;
-    // Zwraca rozmiar jednego pola planszy w pikselach.
+    /** @return Rozmiar jednego pola [px]. */
     float pobierzRozmiarPola() const;
 
 private:

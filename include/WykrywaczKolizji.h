@@ -1,4 +1,8 @@
-// Dyrektywa pilnuje pojedynczego dolaczenia pliku w kompilacji.
+/**
+ * @file WykrywaczKolizji.h
+ * @brief Detekcja kolizji zaby z samochodami.
+ */
+
 #pragma once
 
 // Potrzebujemy informacji o drodze i pasach.
@@ -8,10 +12,19 @@
 // Potrzebujemy aktualnej pozycji zaby.
 #include "Zaba.h"
 
-// Ta klasa odpowiada tylko za wykrywanie kolizji zaby z autem.
+/** @brief Sprawdza kolizje zaby z samochodami na pasie drogi. */
 class WykrywaczKolizji {
 public:
-    // Sprawdza, czy w biezacej klatce doszlo do zderzenia.
+    /**
+     * @brief Sprawdza, czy zaba zderzyla sie z autem.
+     * @param zaba Obiekt gracza.
+     * @param droga Droga z pasami i autami.
+     * @param rozmiarPola Rozmiar pola siatki [px].
+     * @param szerokoscSiatki Liczba kolumn (zarezerwowane).
+     * @param wysokoscSiatki Liczba wierszy (zarezerwowane).
+     * @param ustawienia Konfiguracja poziomu (lista pasow).
+     * @return true gdy wykryto kolizje.
+     */
     bool czyJestKolizja(const Zaba& zaba,
                         const Droga& droga,
                         float rozmiarPola,

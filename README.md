@@ -50,6 +50,24 @@ cmake --build build
 ctest --test-dir build --output-on-failure
 ```
 
+## Dokumentacja projektu (oddanie na zajecia)
+
+| Plik | Zawartosc |
+|---|---|
+| `docs/DOKUMENTACJA_OPISOWA.md` | Dokumentacja opisowa: zalozenia, wymagania, GUI, diagram klas, plan testow |
+| `docs/SPRAWDZENIE_WYMAGAN.md` | Checklist zgodnosci z wymaganiami PDF |
+| `docs/PRZEWODNIK_PLIKI_H.md` | Przewodnik po plikach naglowkowych |
+| `docs/PRZEWODNIK_PLIKI_CPP.md` | Przewodnik po plikach zrodlowych |
+| `docs/screenshots/` | Zrzuty ekranu (do uzupelnienia przed prezentacja) |
+| `Doxyfile` | Konfiguracja dokumentacji Doxygen |
+
+Generowanie dokumentacji Doxygen:
+
+```bash
+doxygen Doxyfile
+open docs/doxygen/html/index.html
+```
+
 ## Uwagi
 - Detektor kolizji odswieza sie co `16 ms` (`~60 Hz`) - krotki krok odpowiedni dla gry mobilnej.
 - Kod ma polskie nazwy klas i metody oraz komentarze opisujace odpowiedzialnosc sekcji.

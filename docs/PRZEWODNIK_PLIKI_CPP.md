@@ -1,12 +1,30 @@
 # Przewodnik po plikach .cpp — gra „Żaba na ulicy”
 
+**Ostatnia aktualizacja:** czerwiec 2025
+
 Ten dokument wyjaśnia **każdą linijkę** w plikach źródłowych (`.cpp`) w najprostszy możliwy sposób.
 
 **Różnica między `.h` a `.cpp`:**
-- Plik **`.h`** = „co ta część programu potrafi” (deklaracja, spis treści)
+- Plik **`.h`** = „co ta część programu potrafi” (deklaracja + komentarze Doxygen)
 - Plik **`.cpp`** = „jak to dokładnie działa” (prawdziwy kod, który się wykonuje)
 
-Jeśli szukasz opisu nagłówków, zobacz też: `docs/PRZEWODNIK_PLIKI_H.md`
+**Powiązane dokumenty:**
+
+| Plik | Zawartość |
+|---|---|
+| `PRZEWODNIK_PLIKI_H.md` | Przewodnik po nagłówkach (zaktualizowany pod Doxygen) |
+| `DOKUMENTACJA_OPISOWA.md` | Dokumentacja do oddania projektu |
+| `SPRAWDZENIE_WYMAGAN.md` | Checklist zgodności z wymaganiami PDF |
+| `Doxyfile` | Generowanie HTML: `doxygen Doxyfile` |
+
+**Struktura projektu (pliki źródłowe i testy):**
+```
+include/     — nagłówki .h (z komentarzami Doxygen)
+src/         — implementacje .cpp + main.cpp
+tests/       — TestyLogiki.cpp (logika bez GUI, CTest)
+docs/        — dokumentacja (ten plik i pozostałe)
+Doxyfile     — konfiguracja Doxygen
+```
 
 ---
 
@@ -1017,6 +1035,9 @@ Uruchamia wszystkie testy po kolei. Jeśli wszystko OK → wypisuje „OK: Wszys
 | Powrót do menu | `Gra.cpp` + `InterfejsGraficzny.cpp` | `przejdzDoMenu` |
 | Rysowanie trawy i asfaltu | `InterfejsGraficzny.cpp` | `rysujRozgrywke` |
 | Testy automatyczne | `TestyLogiki.cpp` | `main()` testów |
+| Dokumentacja Doxygen | wszystkie `.h` | `doxygen Doxyfile` → `docs/doxygen/html/` |
+| Oddanie projektu (PDF) | `DOKUMENTACJA_OPISOWA.md` | założenia, wymagania, diagram klas |
+| Zrzuty ekranu | `docs/screenshots/` | do uzupełnienia przed prezentacją |
 
 ---
 
@@ -1037,8 +1058,19 @@ main.cpp
         ├── klawiatura → Gra::ruch → Zaba::ruch
         ├── mysz → Gra::rozpocznijGre / przejdzDoMenu
         └── paintEvent → rysujMenu / rysujRozgrywke / rysujEkranKoncowy
+
+tests/TestyLogiki.cpp  (osobny program, bez Qt GUI)
+  └── testuje klase Gra i UstawieniaTrudnosci
+      └── uruchomienie: ctest --test-dir build
 ```
 
 ---
 
-*Dokument wygenerowany dla projektu „Żaba na ulicy”. Część 2: pliki `.cpp`. Część 1 (pliki `.h`): `PRZEWODNIK_PLIKI_H.md`*
+## Uwaga o plikach `.h`
+
+Od czerwca 2025 wszystkie nagłówki w `include/` mają komentarze **Doxygen** (`@file`, `@brief`, `@param`, `@return`).  
+Opis deklaracji klas i metod jest w `PRZEWODNIK_PLIKI_H.md` — numery linii tam odpowiadają aktualnej wersji plików.
+
+---
+
+*Część 2: pliki `.cpp`. Część 1: `PRZEWODNIK_PLIKI_H.md`. Dokumentacja projektu: `DOKUMENTACJA_OPISOWA.md`*

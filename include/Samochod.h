@@ -1,26 +1,42 @@
-// Ta dyrektywa zapobiega wielokrotnemu dolaczeniu tego samego pliku naglowkowego.
+/**
+ * @file Samochod.h
+ * @brief Pojedynczy samochod poruszajacy sie poziomo po pasie.
+ */
+
 #pragma once
 
 // Dolaczamy wspolne typy (np. enum Kierunek), z ktorych korzysta klasa Samochod.
 #include "Typy.h"
 
-// Definicja klasy opisujacej jeden samochod poruszajacy sie po planszy.
+/** @brief Samochod poruszajacy sie po jednym pasie drogi. */
 class Samochod {
 public:
-    // Konstruktor: tworzy nowy obiekt samochodu z podanymi parametrami startowymi.
+    /**
+     * @brief Tworzy samochod z parametrami startowymi.
+     * @param xStart Pozycja poczatkowa X w pikselach.
+     * @param yStale Stala wysokosc pasa (Y).
+     * @param predkosc Predkosc w pikselach na sekunde.
+     * @param kierunek LEWO lub PRAWO.
+     * @param szerokosc Szerokosc planszy do zapetlenia.
+     * @param wariantKoloru Indeks koloru nadwozia (0-2).
+     */
     Samochod(float xStart, float yStale, float predkosc, Kierunek kierunek, float szerokosc,
              int wariantKoloru);
 
-    // Metoda przesuwa samochod w czasie gry (na podstawie czasu i tempa rozgrywki).
+    /**
+     * @brief Aktualizuje pozycje auta o krok czasu.
+     * @param deltaSekundy Czas od poprzedniej klatki [s].
+     * @param mnoznikTempa Mnoznik gestosci ruchu (np. 0.75-1.35).
+     */
     void aktualizuj(float deltaSekundy, float mnoznikTempa);
 
-    // Zwraca aktualna pozycje pozioma samochodu (os X).
+    /** @return Pozycja X w pikselach. */
     float pobierzX() const;
-    // Zwraca aktualna pozycje pionowa samochodu (os Y).
+    /** @return Pozycja Y w pikselach. */
     float pobierzY() const;
-    // Zwraca numer wariantu koloru, aby interfejs wiedzial jak narysowac auto.
+    /** @return Wariant koloru do rysowania (0, 1 lub 2). */
     int pobierzWariantKoloru() const;
-    // Ustawia nowa pozycje pozioma samochodu (zmienia wspolrzedna X).
+    /** @brief Ustawia nowa pozycje X (np. po normalizacji). */
     void ustawX(float nowyX);
 
 private:

@@ -1,7 +1,17 @@
 # Przewodnik po plikach .h — gra „Żaba na ulicy”
 
+**Ostatnia aktualizacja:** czerwiec 2025 (zgodna z wersją z komentarzami Doxygen)
+
 Ten dokument wyjaśnia **każdą linijkę** w plikach nagłówkowych (`.h`) w najprostszy możliwy sposób.  
 Plik `.h` to jak **spis treści / instrukcja** — mówi, *co dana część programu potrafi*, ale prawdziwa praca dzieje się w plikach `.cpp` o tej samej nazwie.
+
+**Powiązane dokumenty:**
+| Plik | Zawartość |
+|---|---|
+| `PRZEWODNIK_PLIKI_CPP.md` | Ten sam poziom szczegółowości, ale dla plików `.cpp` |
+| `DOKUMENTACJA_OPISOWA.md` | Dokumentacja do oddania projektu (wymagania, GUI, diagram klas) |
+| `SPRAWDZENIE_WYMAGAN.md` | Checklist zgodności z PDF prowadzącego |
+| `Doxyfile` + `doxygen Doxyfile` | Automatyczna dokumentacja HTML z komentarzy w `.h` |
 
 ---
 
@@ -9,6 +19,7 @@ Plik `.h` to jak **spis treści / instrukcja** — mówi, *co dana część prog
 
 | Słowo w kodzie | Co to znaczy po ludzku |
 |---|---|
+| `@file`, `@brief`, `@param`, `@return` | Tagi **Doxygen** — służą do generowania dokumentacji HTML |
 | `#pragma once` | „Wczytaj ten plik tylko raz” — zabezpieczenie przed powtórkami |
 | `#include` | „Weź też inny plik, bo go potrzebuję” |
 | `enum class` | Lista nazwanych opcji do wyboru (jak menu z 3–4 pozycjami) |
@@ -21,43 +32,47 @@ Plik `.h` to jak **spis treści / instrukcja** — mówi, *co dana część prog
 | `const` | „Tylko do odczytu — nie zmieniaj” |
 | `public` | Rzeczy, z których inne części programu mogą korzystać |
 | `private` | Rzeczy tylko dla tej klasy — „wewnętrzna kuchnia” |
+| `override` | Nadpisuje metodę z klasy bazowej (Qt) |
 
 **Gdzie szukać działania?**  
-Nagłówek (`.h`) mówi *co jest*. Implementacja (`.cpp`) mówi *jak to działa linijka po linijce*.
+Nagłówek (`.h`) mówi *co jest*. Implementacja (`.cpp`) mówi *jak to działa* — opis w `PRZEWODNIK_PLIKI_CPP.md`.
+
+**Blok Doxygen na początku każdego pliku** (linie 1–4) wygląda tak:
+```cpp
+/**
+ * @file NazwaPliku.h
+ * @brief Krotki opis calego pliku.
+ */
+```
+Kompilator tego nie wykonuje — to dokumentacja dla człowieka i dla `doxygen`.
 
 ---
 
-# 1. `include/Typy.h` — podstawowe „etykiety” gry
+# 1. `include/Typy.h` — podstawowe „etykiety” gry (28 linii)
 
 Ten plik **nie rysuje nic** i **nie porusza niczym**.  
 To słownik nazw — program wie, że gra może być w menu, w trakcie, po wygranej itd.
 
 ---
 
-### Linia 1
+### Linie 1–4 — nagłówek Doxygen
 ```cpp
-// Ta dyrektywa sprawia, ze ten plik zostanie dolaczony tylko raz.
+/**
+ * @file Typy.h
+ * @brief Wspolne typy wyliczeniowe gry (stan, trudnosc, kierunek).
+ */
 ```
-**Komentarz** — wyjaśnienie dla programisty. Kompilator tego nie wykonuje.
+Opis całego pliku dla dokumentacji Doxygen.
 
-### Linia 2
+### Linia 6
 ```cpp
 #pragma once
 ```
-**Zabezpieczenie.** Gdy wiele plików chce wczytać `Typy.h`, ten plik trafi do programu tylko jeden raz. Bez tego mogłyby powstać błędy „zdefiniowano dwa razy”.
+**Zabezpieczenie.** Plik wczytywany tylko raz.
 
-### Linia 3
-*(pusta)*  
-Oddzielenie wizualne — nic nie robi.
-
-### Linia 4
+### Linie 8–14 — `enum class StanGry`
 ```cpp
-// Ten enum opisuje, na jakim ekranie/stanie aktualnie jest gra.
-```
-Komentarz: za chwilę zdefiniujemy **stan gry** — czy widzisz menu, czy grasz, czy skończyłaś.
-
-### Linie 5–10
-```cpp
+/** @brief Stan aplikacji / ekranu gry. */
 enum class StanGry {
     MENU,       // Gracz widzi menu glowne i wybiera poziom.
     W_TRAKCIE,  // Trwa aktywna rozgrywka.
@@ -66,546 +81,352 @@ enum class StanGry {
 };
 ```
 
-**`enum class StanGry`** — lista 4 możliwych „trybów” gry:
-
-| Wartość | Znaczenie | Gdzie to widać w grze |
+| Wartość | Znaczenie | Gdzie widać w grze |
 |---|---|---|
 | `MENU` | Ekran startowy | Przyciski Łatwy / Średni / Trudny |
 | `W_TRAKCIE` | Normalna rozgrywka | Żaba, droga, samochody |
 | `WYGRANA` | Dotarłaś na metę | Ekran „wygrana” |
 | `PRZEGRANA` | Kolizja z autem | Ekran „przegrana” |
 
-**Gdzie to się zmienia w kodzie?**  
-→ `Gra.h` / `Gra.cpp` — pole `stan` i funkcje `rozpocznijGre`, `sprawdzWarunkiKonca`  
-→ `InterfejsGraficzny.cpp` — rysuje menu albo grę w zależności od stanu
+**Gdzie się zmienia:** `Gra.cpp` — pole `stan`; `InterfejsGraficzny.cpp` — rysowanie wg stanu.
 
-### Linia 11
-*(pusta)*
-
-### Linia 12
+### Linie 16–21 — `enum class PoziomTrudnosci`
 ```cpp
-// Ten enum przechowuje poziom trudnosci wybrany przez gracza.
-```
-
-### Linie 13–17
-```cpp
+/** @brief Poziom trudnosci wybrany przez gracza. */
 enum class PoziomTrudnosci {
-    LATWY,   // Najlatwiejsza konfiguracja.
-    SREDNI,  // Srednia konfiguracja.
-    TRUDNY   // Najtrudniejsza konfiguracja.
+    LATWY, SREDNI, TRUDNY
 };
 ```
 
-**Poziom trudności** — wybór z menu:
-
-| Wartość | Co zmienia w grze |
+| Wartość | Co zmienia |
 |---|---|
-| `LATWY` | Mniej pasów, wolniejsze auta |
-| `SREDNI` | Więcej pasów, „bezpieczna trawa” między drogami |
-| `TRUDNY` | Najwięcej pasów, szybsze i gęstsze auta |
+| `LATWY` | 4 pasy, wolniejsze auta |
+| `SREDNI` | 8 pasów, trawa między drogami |
+| `TRUDNY` | 12 pasów, najszybsze auta |
 
-**Gdzie to ustawia liczby?**  
-→ `UstawieniaTrudnosci.cpp` — funkcja `pobierzUstawieniaTrudnosci`
+**Gdzie ustawiane liczby:** `UstawieniaTrudnosci.cpp` — `pobierzUstawieniaTrudnosci`
 
-### Linia 18
-*(pusta)*
-
-### Linia 19
+### Linie 23–27 — `enum class Kierunek`
 ```cpp
-// Ten enum mowi, w ktora strone porusza sie samochod.
+/** @brief Kierunek ruchu samochodu na pasie. */
+enum class Kierunek { LEWO, PRAWO };
 ```
 
-### Linie 20–23
-```cpp
-enum class Kierunek {
-    LEWO,   // Ruch samochodu w lewo.
-    PRAWO   // Ruch samochodu w prawo.
-};
-```
-
-**Kierunek samochodu** — każdy pas ma auta jadące w lewo albo w prawo (jak w Froggerze).
-
-**Gdzie to używane?**  
-→ `Samochod.cpp` — przy ruchu auta  
-→ `PasRuchu.cpp` — przy tworzeniu pasa  
-→ `Droga.cpp` — przy układaniu pasów na planszy
+**Gdzie używane:** `Samochod.cpp`, `PasRuchu.cpp`, `Droga.cpp`
 
 ---
 
-# 2. `include/UstawieniaTrudnosci.h` — liczby opisujące poziom
-
-Ten plik mówi: **jakie liczby opisują dany poziom trudności** (ile wierszy, jak szybko jadą auta itd.).
+# 2. `include/UstawieniaTrudnosci.h` — liczby poziomów (62 linie)
 
 ---
 
-### Linia 1
-Komentarz o `#pragma once`.
+### Linie 1–4 — Doxygen
+`@file UstawieniaTrudnosci.h` — parametry poziomów trudności.
 
-### Linia 2
+### Linie 6, 9, 12
+`#pragma once`, `#include "Typy.h"`, `#include <vector>`.
+
+### Linie 14–32 — `struct UstawieniaTrudnosci`
 ```cpp
-#pragma once
+/** @brief Zestaw parametrow opisujacych jeden poziom trudnosci. */
+struct UstawieniaTrudnosci { ... };
 ```
-Jak wyżej — wczytaj raz.
-
-### Linia 3
-*(pusta)*
-
-### Linia 4–5
-```cpp
-// Potrzebujemy enumu PoziomTrudnosci z typow wspolnych.
-#include "Typy.h"
-```
-Bierzemy z `Typy.h` listę `LATWY / SREDNI / TRUDNY`.
-
-### Linia 7–8
-```cpp
-// Potrzebujemy wektora do listy numerow wierszy drogowych.
-#include <vector>
-```
-`vector` = **dynamiczna lista** (np. lista numerów wierszy, które są drogą: 2, 3, 4…).
-
-### Linia 10
-```cpp
-// Ta struktura trzyma wszystkie liczby opisujace poziom trudnosci.
-```
-
-### Linie 11–28 — struktura `UstawieniaTrudnosci`
-
-To **pudełko na ustawienia** jednego poziomu:
-
-| Linia | Pole | Co to znaczy | Przykład |
-|---|---|---|---|
-| 13 | `wysokoscSiatki` | Ile wierszy ma plansza (pionowo) | 5, 12, 16… |
-| 15 | `wierszePasow` | **Które wiersze** to asfalt z autami | np. wiersz 2 i 3 |
-| 17 | `predkoscSamochodow` | Jak szybko jadą auta (piksele/sek) | 100.0 |
-| 19 | `interwalTworzeniaAuta` | Co ile sekund pojawia się nowe auto | 1.2 s |
-| 21 | `minimalnyOdstepAut` | Minimalna odległość między autami | 150 px |
-| 23 | `autaNaStarcieMin` | Min. aut na pasie na starcie | 1 |
-| 25 | `autaNaStarcieMax` | Max. aut na pasie na starcie | 2 |
-| 27 | `maksAutNaPasie` | Ile aut max. może być naraz na jednym pasie | 3 |
-
-**`= 5`, `= 100.0f` itd.** — wartości domyślne, gdyby ktoś nie ustawił inaczej.
-
-**Gdzie te liczby są wypełniane?**  
-→ `UstawieniaTrudnosci.cpp` — funkcja `pobierzUstawieniaTrudnosci` (tu jest różnica Łatwy/Średni/Trudny)
-
-### Linie 30–31
-```cpp
-// Funkcja zwraca komplet ustawien dla wybranego poziomu trudnosci.
-UstawieniaTrudnosci pobierzUstawieniaTrudnosci(PoziomTrudnosci poziom);
-```
-**Deklaracja funkcji** — „daj mi poziom (ŁATWY/ŚREDNI/TRUDNY), a zwrócę cały zestaw liczb”.  
-**Implementacja:** `UstawieniaTrudnosci.cpp`
-
-### Linie 33–34
-```cpp
-int pobierzOstatniPasDrogi(const UstawieniaTrudnosci& ustawienia);
-```
-Zwraca numer **ostatniego wiersza, który jest drogą** — potrzebne, żeby wiedzieć, gdzie kończy się asfalt.
-
-### Linie 36–37
-```cpp
-int pobierzWierszMety(const UstawieniaTrudnosci& ustawienia);
-```
-Zwraca numer wiersza **mety** (zielone pole za drogą).  
-**Gdzie sprawdzana wygrana?** → `Gra.cpp` — `sprawdzWarunkiKonca`
-
-### Linie 39–40
-```cpp
-bool czyWierszJestPasem(int wiersz, const UstawieniaTrudnosci& ustawienia);
-```
-Odpowiada **tak/nie**: czy dany wiersz (np. wiersz 3) to pas z autami.
-
----
-
-# 3. `include/Zaba.h` — gracz (żaba)
-
-Opisuje **tylko żabę** — gdzie stoi i jak się rusza. Nie rysuje jej — to robi `InterfejsGraficzny.cpp`.
-
----
-
-### Linie 1–2
-Komentarz + `#pragma once`.
-
-### Linie 4–5
-```cpp
-// Ta klasa reprezentuje gracza (czyli abe) i jej ruch.
-class Zaba {
-```
-**Klasa Żaba** — obiekt gracza.
-
-### `public` — co inne pliki mogą wywołać
-
-| Linie | Metoda | Co robi | Gdzie wywoływane |
-|---|---|---|---|
-| 8 | `ustawPozycjeStartowa(x, y)` | Stawia żabę na starcie (dół planszy) | `Gra.cpp` — `rozpocznijGre` |
-| 11 | `ruch(dx, dy, krok)` | Przesuwa żabę o pola: W=góra, S=dół, A=lewo, D=prawo | `Gra.cpp` — `ruch` |
-| 14 | `ograniczDoPlanszy(szer, wys)` | Nie pozwala wyjść poza krawędzie | `Gra.cpp` — po ruchu |
-| 17 | `pobierzX()` | Aktualna kolumna żaby | Rysowanie, kolizje |
-| 19 | `pobierzY()` | Aktualny wiersz żaby | Rysowanie, kolizje, meta |
-
-**`krok = 1`** — domyślnie rusza się o 1 pole; można podać inny krok.
-
-### `private` — wewnętrzne dane żaby
 
 | Linia | Pole | Znaczenie |
 |---|---|---|
-| 23 | `int x = 0` | Pozycja w poziomie (kolumna) |
-| 25 | `int y = 0` | Pozycja w pionie (wiersz) |
+| 17 | `wysokoscSiatki` | Ile wierszy ma plansza |
+| 19 | `wierszePasow` | Które wiersze to asfalt (lista) |
+| 21 | `predkoscSamochodow` | Piksele/sekundę |
+| 23 | `interwalTworzeniaAuta` | Co ile sekund nowe auto |
+| 25 | `minimalnyOdstepAut` | Min. odległość między autami [px] |
+| 27 | `autaNaStarcieMin` | Min. aut na starcie |
+| 29 | `autaNaStarcieMax` | Max. aut na starcie |
+| 31 | `maksAutNaPasie` | Limit aut na pasie |
 
-**Implementacja ruchu:** `Zaba.cpp`  
-**Sterowanie klawiszami W/A/S/D:** `InterfejsGraficzny.cpp` → `keyPressEvent` → `Gra::ruch`
+**Wypełnianie wartości:** `UstawieniaTrudnosci.cpp` linie 11–22.
+
+### Linie 34–39 — `pobierzUstawieniaTrudnosci`
+```cpp
+/**
+ * @brief Zwraca komplet ustawien dla wybranego poziomu trudnosci.
+ * @param poziom Poziom LATWY, SREDNI lub TRUDNY.
+ * @return Struktura UstawieniaTrudnosci z parametrami planszy i ruchu aut.
+ */
+```
+**Implementacja:** `UstawieniaTrudnosci.cpp`
+
+### Linie 41–46 — `pobierzOstatniPasDrogi`
+Zwraca numer **ostatniego wiersza drogi**.
+
+### Linie 48–53 — `pobierzWierszMety`
+Meta = ostatni pas + 1. **Wygrana:** `Gra.cpp` — `sprawdzWarunkiKonca`.
+
+### Linie 55–61 — `czyWierszJestPasem`
+`true` = wiersz to asfalt. Używane w `WykrywaczKolizji.cpp` — brak kolizji na trawie.
 
 ---
 
-# 4. `include/Samochod.h` — jedno auto
-
-Jeden samochód na jednym pasie. Auta **same się poruszają** — gracz nimi nie steruje.
+# 3. `include/Zaba.h` — gracz (36 linii)
 
 ---
 
-### Linie 1–5
-Komentarz, `#pragma once`, `#include "Typy.h"` (dla `Kierunek`).
+### Linie 1–4 — Doxygen
+`@file Zaba.h` — pozycja i ruch gracza.
 
-### Linie 8–12 — konstruktor
+### Linie 8–9 — klasa
 ```cpp
-Samochod(float xStart, float yStale, float predkosc, Kierunek kierunek, float szerokosc,
-         int wariantKoloru);
+/** @brief Reprezentuje gracza i obsluguje jego ruch po planszy. */
+class Zaba {
 ```
-Tworzy nowe auto z parametrami:
-- **xStart** — gdzie zaczyna w poziomie
-- **yStale** — na której wysokości (pasie) jedzie (Y się nie zmienia)
-- **predkosc** — szybkość
-- **kierunek** — LEWO lub PRAWO
-- **szerokosc** — szerokość planszy (do „zawijania” auta na drugi brzeg)
-- **wariantKoloru** — który kolor narysować (0, 1, 2…)
 
-**Tworzenie aut:** `PasRuchu.cpp` — `dodajSamochod`
+### `public` — metody
 
-### Linie 14–15 — `aktualizuj`
+| Linie | Metoda | Co robi | Gdzie wywoływane |
+|---|---|---|---|
+| 11–12 | `ustawPozycjeStartowa` | Start na dole planszy | `Gra.cpp` — `rozpocznijGre` |
+| 14–20 | `ruch(dx, dy, krok)` | Ruch W/A/S/D | `Gra.cpp` — `ruch` |
+| 22–23 | `ograniczDoPlanszy` | Granice planszy | `Gra.cpp` — po ruchu |
+| 25–28 | `pobierzX`, `pobierzY` | Aktualna pozycja | Rysowanie, kolizje, meta |
+
+### `private` — pola (linie 30–34)
+
+| Linia | Pole | Znaczenie |
+|---|---|---|
+| 32 | `int x = 0` | Kolumna |
+| 34 | `int y = 0` | Wiersz |
+
+**Implementacja:** `Zaba.cpp` | **Sterowanie:** `InterfejsGraficzny.cpp` → `keyPressEvent`
+
+---
+
+# 4. `include/Samochod.h` — jedno auto (56 linii)
+
+---
+
+### Linie 1–4 — Doxygen | Linie 8–9 — `#include "Typy.h"`
+
+### Linie 11–12 — klasa
 ```cpp
-void aktualizuj(float deltaSekundy, float mnoznikTempa);
+/** @brief Samochod poruszajacy sie po jednym pasie drogi. */
+class Samochod {
 ```
-Co klatkę przesuwa auto. `deltaSekundy` = ile czasu minęło od ostatniej klatki.  
+
+### Linie 14–24 — konstruktor (z `@param` dla każdego argumentu)
+Tworzy auto: pozycja X/Y, prędkość, kierunek, szerokość planszy, kolor (0–2).
+
+### Linie 26–31 — `aktualizuj`
+`@param deltaSekundy` — czas klatki; `@param mnoznikTempa` — losowa gęstość (0.75–1.35).  
 **Implementacja:** `Samochod.cpp`
 
-### Linie 17–24 — gettery i setter
-| Metoda | Po co |
-|---|---|
-| `pobierzX()`, `pobierzY()` | Pozycja do rysowania i kolizji |
-| `pobierzWariantKoloru()` | Kolor auta na ekranie |
-| `ustawX(nowyX)` | Korekta pozycji (np. po zawinięciu pasa) |
+### Linie 33–40 — gettery i `ustawX`
 
-### `private` — pola wewnętrzne (linie 27–38)
+### `private` — pola (linie 42–54)
 
 | Pole | Znaczenie |
 |---|---|
-| `x`, `y` | Pozycja (float = dokładniejsza niż int) |
-| `predkoscPikseleNaSek` | Szybkość jazdy |
+| `x`, `y` | Pozycja [px] |
+| `predkoscPikseleNaSek` | Szybkość |
 | `kierunekRuchu` | LEWO / PRAWO |
-| `szerokoscPlanszyPiksele` | Do obliczeń zawijania |
-| `wariantKoloru` | Numer koloru |
+| `szerokoscPlanszyPiksele` | Do zawijania |
+| `wariantKoloru` | 0=czerwony, 1=niebieski, 2=żółty |
 
 ---
 
-# 5. `include/PasRuchu.h` — jeden pas drogi z autami
-
-**Pas** = jeden poziomy „pasek” asfaltu, po którym jadą samochody w jednym kierunku.  
-Ten plik zarządza **wszystkimi autami na jednym pasie**.
+# 5. `include/PasRuchu.h` — jeden pas z autami (88 linii)
 
 ---
 
-### Linie 1–10
-`#pragma once`, `#include "Samochod.h"`, `<random>`, `<vector>`.
+### Linie 1–4 — Doxygen | Linie 8–14 — include
 
-### Linie 16–24 — konstruktor `PasRuchu`
-Przyjmuje **wszystkie parametry pasa** z ustawień trudności:
-- `yPasa` — wysokość pasa na ekranie
-- `kierunek` — lewo/prawo
-- `predkoscAut`, `interwalTworzeniaAut`, `minimalnyOdstepAut`
-- `autaNaStarcieMin/Max`, `maksAutNaPasie`
-- `szerokoscPlanszyPiksele`
+### Linie 16–17 — klasa
+```cpp
+/** @brief Pas ruchu z wieloma samochodami jadacymi w jednym kierunku. */
+```
 
-**Tworzenie pasów:** `Droga.cpp` — `skonfiguruj`
+### Linie 19–28 — konstruktor
+Parametry: `yPasa`, kierunek, prędkość, interwał spawnu, szerokość, odstępy, limity aut.
 
-### `public` — główne operacje
+### `public` (linie 30–37)
 
 | Linie | Metoda | Co robi |
 |---|---|---|
-| 27 | `aktualizuj(...)` | Rusza auta, liczy spawn, zmienia gęstość |
-| 29 | `pobierzSamochody()` | Lista aut (do rysowania i kolizji) |
-| 31 | `czyPasMaWidoczneAuto()` | Czy na pasie widać choć jedno auto |
-| 33 | `utrzymijWidocznyRuch(...)` | Jeśli pas pusty — dokłada auto, żeby nie było pusto |
+| 30–31 | `aktualizuj` | Ruch, spawn, gęstość |
+| 32–33 | `pobierzSamochody` | Lista aut |
+| 34–35 | `czyPasMaWidoczneAuto` | Czy coś widać |
+| 36–37 | `utrzymijWidocznyRuch` | Dokłada auto gdy pas pusty |
 
-### `private` — metody pomocnicze (linie 36–53)
+### `private` — metody (linie 40–57)
+`dodajSamochod`, `dodajRuchPoczatkowy`, `czyMoznaDodacAuto`, `losujWolneMiejsceNaPasie`, `znormalizujX`, itd.
 
-| Metoda | Po co |
-|---|---|
-| `dodajSamochod()` | Wstawia nowe auto na pas |
-| `dodajRuchPoczatkowy()` | Na starcie gry ustawia pierwsze auta |
-| `czyMoznaDodacAuto()` | Czy jest miejsce (odstęp od innych aut) |
-| `losujWolneMiejsceNaPasie()` | Losuje X, gdzie auto nie koliduje |
-| `losujDodatkoweOpoznienie()` | Losowe opóźnienie między spawnami |
-| `znormalizujX()` | „Zawija” pozycję X wokół planszy |
-| `normalizujPozycjeAut()` | Naprawia auta, które wyszły poza zakres |
-| `ograniczXNaPasie()` | Trzyma X w sensownym zakresie |
-| `czyOdlegloscWystarczajaca()` | Czy dwa auta nie są za blisko |
+### `private` — pola (linie 59–86)
 
-### `private` — pola (linie 55–82)
-
-| Pole | Znaczenie |
-|---|---|
-| `y` | Wysokość pasa |
-| `kierunekRuchu` | Kierunek aut na tym pasie |
-| `predkoscSamochodow` | Bazowa prędkość |
-| `interwalSpawnu` | Jak często nowe auto |
-| `szerokoscPlanszy` | Szerokość do zawijania |
-| `licznikDoSpawnu` | Odliczanie do następnego auta |
-| `minimalnyOdstep` | Min. dystans między autami |
-| `autaStartMin/Max` | Ile aut na start |
-| `maksAutNaPasie` | Limit aut |
-| `czyRuchStartowyZrobiony` | Czy startowy zestaw aut już dodany |
-| `wspolczynnikGestosciRuchu` | Czasem auta jadą szybciej/wolniej (losowo) |
-| `czasDoZmianyGestosci` | Kiedy zmienić gęstość |
-| `samochody` | **Lista wszystkich aut na tym pasie** |
-
-**Cała logika ruchu aut na jednym pasie:** `PasRuchu.cpp`
-
----
-
-# 6. `include/Droga.h` — cała droga (wiele pasów)
-
-**Droga** = zbiór wszystkich pasów ruchu na planszy. Łączy pasy w jedną całość.
-
----
-
-### Linie 1–12
-Include: `PasRuchu.h`, `UstawieniaTrudnosci.h`, `<random>`, `<vector>`.
-
-### Linie 18–21 — `skonfiguruj`
-```cpp
-void skonfiguruj(const UstawieniaTrudnosci& ustawienia,
-                 float szerokoscPlanszy,
-                 float wysokoscPlanszy,
-                 float wysokoscPola);
-```
-**Buduje drogę** na podstawie poziomu trudności i rozmiaru okna.  
-Tworzy tyle pasów, ile mówi `wierszePasow` w ustawieniach.  
-**Implementacja:** `Droga.cpp`
-
-### Linie 23–28 — pozostałe `public`
-
-| Metoda | Co robi |
-|---|---|
-| `aktualizuj` | Aktualizuje **każdy pas** naraz |
-| `pobierzPasy` | Zwraca listę pasów (do rysowania/kolizji) |
-| `pobierzWierszePasow` | Numery wierszy siatki, które są drogą |
-
-### `private` (linie 31–34)
-
-| Pole | Znaczenie |
-|---|---|
-| `pasy` | Lista obiektów `PasRuchu` |
-| `wierszePasow` | Które wiersze planszy to asfalt |
-
-**Wywołanie:** `Gra.cpp` — `aktualizujKrok` woła `droga.aktualizuj(...)`
-
----
-
-# 7. `include/WykrywaczKolizji.h` — czy żaba trafiła w auto
-
-Bardzo wąski plik: **tylko sprawdzanie zderzeń**. Nic nie rysuje, nic nie rusza.
-
----
-
-### Linie 1–9
-Include: `Droga.h`, `UstawieniaTrudnosci.h`, `Zaba.h`.
-
-### Linie 11–12
-```cpp
-// Ta klasa odpowiada tylko za wykrywanie kolizji zaby z autem.
-class WykrywaczKolizji {
-```
-
-### Linie 15–20 — jedyna publiczna metoda
-```cpp
-bool czyJestKolizja(const Zaba& zaba,
-                    const Droga& droga,
-                    float rozmiarPola,
-                    int szerokoscSiatki,
-                    int wysokoscSiatki,
-                    const UstawieniaTrudnosci& ustawienia) const;
-```
-
-**Wejście:** pozycja żaby, wszystkie pasy z autami, rozmiar pola, wymiary planszy, ustawienia.  
-**Wyjście:** `true` = kolizja (przegrana), `false` = bezpiecznie.
-
-**Implementacja (jak dokładnie liczy kolizję):** `WykrywaczKolizji.cpp`  
-**Kto woła:** `Gra.cpp` — `sprawdzWarunkiKonca`
-
-**Uwaga z README:** kolizja odświeża się co ~16 ms (~60 Hz).
-
----
-
-# 8. `include/Gra.h` — „mózg” gry (bez rysowania)
-
-To **najważniejszy plik logiki**. Łączy żabę, drogę, kolizje, stan gry i czas.  
-**Nie wie nic o oknie Qt** — działa „w tle”; GUI tylko go pyta i daje rozkazy.
-
----
-
-### Linie 1–18 — include
-- `Droga.h` — auta i pasy
-- `Typy.h` — stany, trudność, kierunek
-- `UstawieniaTrudnosci.h` — liczby poziomu
-- `WykrywaczKolizji.h` — kolizje
-- `Zaba.h` — gracz
-- `<chrono>` — pomiar czasu gry
-- `<random>` — losowość (auta, gęstość)
-
-### `public` — co GUI i reszta programu robi z grą
-
-| Linie | Metoda | Co robi | Kiedy |
-|---|---|---|---|
-| 24 | `Gra()` | Konstruktor — startowy stan MENU | Przy starcie aplikacji |
-| 26 | `rozpocznijGre(poziom)` | Nowa gra: ustawia poziom, żabę, drogę, stan W_TRAKCIE | Klik w Łatwy/Średni/Trudny |
-| 28 | `przejdzDoMenu()` | Wraca do MENU | Przycisk powrotu |
-| 31 | `ruch(dx, dy)` | Rusza żabą | W/A/S/D |
-| 34 | `aktualizujKrok(delta)` | Co klatkę: auta, kolizje, meta, zegar | Timer w GUI |
-| 37 | `pobierzStan()` | MENU / W_TRAKCIE / WYGRANA / PRZEGRANA | Co narysować |
-| 39 | `pobierzPoziomTrudnosci()` | Aktualny poziom | Tekst na ekranie |
-| 41 | `pobierzZabe()` | Dane żaby do rysowania | `rysujRozgrywke` |
-| 43 | `pobierzDroge()` | Pasy i auta do rysowania | `rysujRozgrywke` |
-| 45 | `pobierzCzasSekundy()` | Ile sekund grasz | HUD / ekran końcowy |
-| 47–49 | `pobierzSzerokosc/WysokoscSiatki()` | Wymiary planszy | Rysowanie siatki |
-| 51 | `pobierzRozmiarPola()` | Wielkość jednego kwadratu w px | Skalowanie |
-
-### `private` — wewnętrzna logika
-
-| Linie | Metoda | Co robi |
+| Linie | Pole | Znaczenie |
 |---|---|---|
-| 55 | `sprawdzWarunkiKonca()` | Kolizja → PRZEGRANA; meta → WYGRANA |
-| 57 | `finalizujOczekujacaWygrana()` | Opóźnia ekran wygranej o 1 klatkę |
-| 59 | `uruchomZegar()` | Start licznika czasu |
-| 61 | `zatrzymajZegar()` | Stop przy wygranej/przegranej |
+| 60 | `y` | Wysokość pasa |
+| 62 | `kierunekRuchu` | LEWO/PRAWO |
+| 64–72 | prędkość, spawn, odstępy | Parametry ruchu |
+| 80 | `czyRuchStartowyZrobiony` | Flaga startu |
+| 82–84 | gęstość, timer gęstości | Losowa dynamika |
+| 86 | `samochody` | Lista aut na pasie |
 
-### `private` — pola stanu gry (linie 63–92)
+**Implementacja:** `PasRuchu.cpp`
 
-| Pole | Znaczenie |
+---
+
+# 6. `include/Droga.h` — cała droga (46 linii)
+
+---
+
+### Linie 18–19 — klasa
+```cpp
+/** @brief Reprezentuje cala droge jako zbior pasow ruchu. */
+```
+
+### Linie 21–31 — `skonfiguruj` (z `@param` dla każdego argumentu)
+Buduje pasy z `ustawienia.wierszePasow`. **Implementacja:** `Droga.cpp`
+
+### Linie 33–38 — `public`
+`aktualizuj`, `pobierzPasy`, `pobierzWierszePasow`
+
+### `private` (linie 40–44)
+`pasy` — lista `PasRuchu`; `wierszePasow` — numery wierszy.
+
+---
+
+# 7. `include/WykrywaczKolizji.h` — kolizje (35 linii)
+
+---
+
+### Linie 15–16 — klasa
+```cpp
+/** @brief Sprawdza kolizje zaby z samochodami na pasie drogi. */
+```
+
+### Linie 18–33 — `czyJestKolizja`
+Jedyna publiczna metoda. `@return true` = kolizja.
+
+| Parametr | Znaczenie |
 |---|---|
-| `stan` | MENU / W_TRAKCIE / WYGRANA / PRZEGRANA |
-| `poziomTrudnosci` | LATWY / SREDNI / TRUDNY |
-| `ustawienia` | Wszystkie liczby poziomu |
-| `zaba` | Obiekt gracza |
+| `zaba` | Pozycja gracza |
 | `droga` | Wszystkie pasy i auta |
-| `wykrywaczKolizji` | Sprawdzanie zderzeń |
-| `startCzasu`, `czasZatrzymania`, `zegarZatrzymany` | Licznik czasu rozgrywki |
-| `szerokoscSiatki`, `wysokoscSiatki` | Rozmiar planszy (domyślnie 16×12) |
-| `generator` | Losowość |
-| `rozmiarPola` | 60 px na pole (domyślnie) |
-| `czekaNaKlatkeMety` | Flaga opóźnienia wygranej |
+| `rozmiarPola` | Skala siatki [px] |
+| `szerokoscSiatki`, `wysokoscSiatki` | Zarezerwowane (nieużywane w `.cpp`) |
+| `ustawienia` | Lista pasów drogi |
 
-**Cała implementacja:** `Gra.cpp`
+**Implementacja:** `WykrywaczKolizji.cpp` | **Woła:** `Gra.cpp` — `sprawdzWarunkiKonca`
 
 ---
 
-# 9. `include/InterfejsGraficzny.h` — okno gry (to, co widzisz)
+# 8. `include/Gra.h` — mózg gry (108 linii)
 
-Łączy **Qt (okno, mysz, klawiatura, rysowanie)** z **logiką `Gra`**.  
-To tutaj jest menu, plansza, przyciski i obsługa W/A/S/D.
+**Nie używa Qt** — `@details` mówi, że można testować bez GUI (`testy_logiki`).
 
 ---
 
-### Linie 1–16
-- `#include "Gra.h"` — mózg gry
-- `QElapsedTimer` — mierzy czas między klatkami
-- `QRect` — prostokąt (np. obszar przycisku)
-- `QString` — tekst
-- `QTimer` — „budzik” odświeżający grę co chwilę
-- `QWidget` — bazowa klasa okna
-
-### Linia 19
+### Linie 24–27 — klasa
 ```cpp
+/**
+ * @brief Serce logiki gry — stan, zegar, ruch i warunki konca.
+ * @details Klasa nie uzywa Qt; moze byc testowana bez GUI (testy_logiki).
+ */
+```
+
+### `public` — metody
+
+| Linie | Metoda | Co robi |
+|---|---|---|
+| 30–31 | `Gra()` | Start: MENU, generator losowy |
+| 32–33 | `rozpocznijGre` | Nowa gra, stan W_TRAKCIE |
+| 34–35 | `przejdzDoMenu` | Powrót do menu |
+| 37–42 | `ruch(dx, dy)` | Ruch żaby |
+| 44–48 | `aktualizujKrok` | Co klatkę: auta, kolizje |
+| 50–65 | gettery | stan, poziom, żaba, droga, czas, wymiary |
+
+### `private` — metody (linie 67–75)
+`sprawdzWarunkiKonca`, `finalizujOczekujacaWygrana`, `uruchomZegar`, `zatrzymajZegar`
+
+### `private` — pola (linie 77–106)
+
+| Linie | Pole | Znaczenie |
+|---|---|---|
+| 78 | `stan` | MENU / W_TRAKCIE / WYGRANA / PRZEGRANA |
+| 80 | `poziomTrudnosci` | LATWY / SREDNI / TRUDNY |
+| 82 | `ustawienia` | Parametry poziomu |
+| 84–88 | `zaba`, `droga`, `wykrywaczKolizji` | Obiekty gry |
+| 90–95 | zegar | `startCzasu`, `czasZatrzymania`, `zegarZatrzymany` |
+| 97–104 | plansza | `szerokoscSiatki`=16, `wysokoscSiatki`, `rozmiarPola`, `generator` |
+| 106 | `czekaNaKlatkeMety` | Opóźnienie ekranu wygranej o 1 klatkę |
+
+**Implementacja:** `Gra.cpp`
+
+---
+
+# 9. `include/InterfejsGraficzny.h` — okno Qt (69 linii)
+
+---
+
+### Linie 22–25 — klasa
+```cpp
+/**
+ * @brief Glowne okno gry — warstwa prezentacji (Qt Widgets).
+ * @details Deleguje logike do obiektu Gra; rysuje menu, plansze i ekran koncowy.
+ */
 class InterfejsGraficzny : public QWidget {
 ```
-**Okno aplikacji** — dziedziczy po `QWidget` (standardowe okno Qt).
+**Dziedziczenie** po `QWidget` + **polimorfizm** przez `override`.
 
-### `public` (linie 21–22)
-```cpp
-explicit InterfejsGraficzny(QWidget* rodzic = nullptr);
-```
-Konstruktor — tworzy okno, timer, podpina zdarzenia.  
-**Wywołanie:** `main.cpp` — tworzy to okno i je pokazuje.
+### `public` (linie 28–29)
+Konstruktor — okno 960×720, timer 16 ms, przyciski.
 
-### `protected` — reakcje Qt na zdarzenia użytkownika
+### `protected` — zdarzenia Qt (linie 32–37)
 
-| Linie | Metoda | Kiedy się wywołuje | Co robi |
-|---|---|---|---|
-| 26 | `paintEvent` | Qt chce przerysować okno | Rysuje menu / grę / ekran końcowy |
-| 28 | `mousePressEvent` | Klik myszą | Wybór poziomu, powrót do menu |
-| 30 | `keyPressEvent` | Naciśnięty klawisz | W/A/S/D → ruch żaby |
+| Linie | Metoda | Co robi |
+|---|---|---|
+| 33 | `paintEvent` | Rysuje ekran |
+| 35 | `mousePressEvent` | Klik w menu / powrót |
+| 37 | `keyPressEvent` | W/A/S/D, Escape |
 
-**Implementacja rysowania i kliknięć:** `InterfejsGraficzny.cpp`
+### `private` — metody (linie 40–51)
+`odswiezSymulacje`, `rysujMenu`, `rysujRozgrywke`, `rysujEkranKoncowy`, `rysujPrzycisk`, `tekstPoziomu`
 
-### `private` — metody pomocnicze GUI
+### `private` — pola (linie 53–67)
 
-| Metoda | Co rysuje / robi |
-|---|---|
-| `odswiezSymulacje()` | Liczy delta czasu → `gra.aktualizujKrok` → `update()` |
-| `rysujMenu` | Tytuł + 3 przyciski poziomu |
-| `rysujRozgrywke` | Tło, trawa, droga, auta, żaba, czas |
-| `rysujEkranKoncowy` | Nakładka wygrana/przegrana + przycisk powrotu |
-| `rysujPrzycisk` | Jeden prostokąt z napisem |
-| `tekstPoziomu` | „Łatwy” / „Średni” / „Trudny” z enuma |
+| Linie | Pole | Znaczenie |
+|---|---|---|
+| 54 | `gra` | Logika gry |
+| 56 | `timerPetli` | ~60 FPS |
+| 58 | `zegarKlatek` | Delta czasu |
+| 61–67 | `przyciskLatwy/Sredni/Trudny/Powrot` | Obszary kliknięć (`QRect`) |
 
-### `private` — pola (linie 46–60)
-
-| Pole | Znaczenie |
-|---|---|
-| `gra` | **Obiekt całej logiki** — serce pod spodem GUI |
-| `timerPetli` | Timer ~60 FPS — co tick: `odswiezSymulacje` |
-| `zegarKlatek` | Mierzy `deltaSekundy` między klatkami |
-| `przyciskLatwy` | Gdzie na ekranie kliknąć „Łatwy” |
-| `przyciskSredni` | Obszar „Średni” |
-| `przyciskTrudny` | Obszar „Trudny” |
-| `przyciskPowrot` | Obszar „Powrót do menu” na ekranie końcowym |
-
-**Uwaga:** współrzędne przycisków ustawiane są przy rysowaniu w `.cpp` — nagłówek tylko **deklaruje**, że takie pola istnieją.
+Współrzędne przycisków ustawiane w konstruktorze: `InterfejsGraficzny.cpp` linie 28–31.
 
 ---
 
 # Mapa: „Szukam kodu odpowiedzialnego za X”
 
-| Chcę znaleźć… | Plik .h (deklaracja) | Plik .cpp (działanie) |
+| Chcę znaleźć… | Plik .h | Plik .cpp |
 |---|---|---|
-| Menu i wybór poziomu | `InterfejsGraficzny.h` (`rysujMenu`, przyciski) | `InterfejsGraficzny.cpp` |
-| Sterowanie W/A/S/D | `InterfejsGraficzny.h` (`keyPressEvent`) | `InterfejsGraficzny.cpp` → `Gra::ruch` |
+| Menu i wybór poziomu | `InterfejsGraficzny.h` | `InterfejsGraficzny.cpp` |
+| Sterowanie W/A/S/D | `InterfejsGraficzny.h` | `InterfejsGraficzny.cpp` → `Gra::ruch` |
 | Ruch żaby | `Zaba.h` | `Zaba.cpp` |
 | Ruch samochodów | `Samochod.h`, `PasRuchu.h` | `Samochod.cpp`, `PasRuchu.cpp` |
-| Pojawianie się aut | `PasRuchu.h` (spawn, odstępy) | `PasRuchu.cpp` |
-| Układ pasów (łatwy/średni/trudny) | `UstawieniaTrudnosci.h` | `UstawieniaTrudnosci.cpp` |
-| Budowa całej drogi | `Droga.h` | `Droga.cpp` |
-| Kolizja z autem | `WykrywaczKolizji.h` | `WykrywaczKolizji.cpp` |
-| Wygrana (meta) | `Gra.h` (`sprawdzWarunkiKonca`) | `Gra.cpp` + `UstawieniaTrudnosci.cpp` (`pobierzWierszMety`) |
-| Przegrana | `Gra.h`, `WykrywaczKolizji.h` | `Gra.cpp`, `WykrywaczKolizji.cpp` |
-| Licznik czasu | `Gra.h` (zegar w polach) | `Gra.cpp` |
-| Stany MENU/W_TRAKCIE/WYGRANA | `Typy.h` (`StanGry`) | `Gra.cpp` |
+| Spawn aut | `PasRuchu.h` | `PasRuchu.cpp` |
+| Poziomy trudności | `UstawieniaTrudnosci.h` | `UstawieniaTrudnosci.cpp` |
+| Droga i pasy | `Droga.h` | `Droga.cpp` |
+| Kolizja | `WykrywaczKolizji.h` | `WykrywaczKolizji.cpp` |
+| Wygrana / przegrana | `Gra.h` | `Gra.cpp` |
+| Licznik czasu | `Gra.h` | `Gra.cpp` |
+| Stany gry | `Typy.h` | `Gra.cpp` |
 | Start aplikacji | — | `main.cpp` |
+| Testy bez GUI | — | `tests/TestyLogiki.cpp` |
+| Dokumentacja Doxygen | wszystkie `.h` | `doxygen Doxyfile` |
 
 ---
 
-# Kolejność plików (od najprostszych do najważniejszych)
+# Kolejność plików (od najprostszych)
 
-1. **`Typy.h`** — słownik nazw (stany, poziomy, kierunki)  
-2. **`UstawieniaTrudnosci.h`** — liczby poziomów  
-3. **`Zaba.h`** — gracz  
-4. **`Samochod.h`** — jedno auto  
-5. **`PasRuchu.h`** — jeden pas z wieloma autami  
-6. **`Droga.h`** — wszystkie pasy  
-7. **`WykrywaczKolizji.h`** — kolizje  
-8. **`Gra.h`** — cała logika  
-9. **`InterfejsGraficzny.h`** — okno i rysowanie  
+1. `Typy.h` → 2. `UstawieniaTrudnosci.h` → 3. `Zaba.h` → 4. `Samochod.h` → 5. `PasRuchu.h` → 6. `Droga.h` → 7. `WykrywaczKolizji.h` → 8. `Gra.h` → 9. `InterfejsGraficzny.h`
 
 ---
 
-*Dokument wygenerowany dla projektu „Żaba na ulicy”. Część 1: pliki `.h`. W kolejnej części można opisać pliki `.cpp` z tą samą dokładnością.*
+*Część 1: pliki `.h`. Część 2: `PRZEWODNIK_PLIKI_CPP.md`*

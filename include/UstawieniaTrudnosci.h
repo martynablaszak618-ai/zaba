@@ -1,4 +1,8 @@
-// Ta dyrektywa uniemozliwia wielokrotne dolaczenie tego pliku.
+/**
+ * @file UstawieniaTrudnosci.h
+ * @brief Parametry liczbowe poziomow trudnosci i funkcje pomocnicze planszy.
+ */
+
 #pragma once
 
 // Potrzebujemy enumu PoziomTrudnosci z typow wspolnych.
@@ -7,7 +11,7 @@
 // Potrzebujemy wektora do listy numerow wierszy drogowych.
 #include <vector>
 
-// Ta struktura trzyma wszystkie liczby opisujace poziom trudnosci.
+/** @brief Zestaw parametrow opisujacych jeden poziom trudnosci. */
 struct UstawieniaTrudnosci {
     // Ile wierszy ma cala plansza gry.
     int wysokoscSiatki = 5;
@@ -27,14 +31,31 @@ struct UstawieniaTrudnosci {
     int maksAutNaPasie = 3;
 };
 
-// Funkcja zwraca komplet ustawien dla wybranego poziomu trudnosci.
+/**
+ * @brief Zwraca komplet ustawien dla wybranego poziomu trudnosci.
+ * @param poziom Poziom LATWY, SREDNI lub TRUDNY.
+ * @return Struktura UstawieniaTrudnosci z parametrami planszy i ruchu aut.
+ */
 UstawieniaTrudnosci pobierzUstawieniaTrudnosci(PoziomTrudnosci poziom);
 
-// Funkcja znajduje numer ostatniego wiersza, ktory jest droga.
+/**
+ * @brief Zwraca numer ostatniego wiersza bedacego pasem drogi.
+ * @param ustawienia Biezaca konfiguracja poziomu.
+ * @return Indeks wiersza (logika gry, Y=0 na dole).
+ */
 int pobierzOstatniPasDrogi(const UstawieniaTrudnosci& ustawienia);
 
-// Funkcja zwraca numer pierwszego wiersza mety (zielony teren za droga).
+/**
+ * @brief Zwraca numer wiersza mety (pierwszy zielony za droga).
+ * @param ustawienia Biezaca konfiguracja poziomu.
+ * @return Indeks wiersza mety.
+ */
 int pobierzWierszMety(const UstawieniaTrudnosci& ustawienia);
 
-// Funkcja sprawdza, czy konkretny wiersz nalezy do listy pasow drogowych.
+/**
+ * @brief Sprawdza, czy dany wiersz jest pasem drogowym.
+ * @param wiersz Numer wiersza do sprawdzenia.
+ * @param ustawienia Biezaca konfiguracja poziomu.
+ * @return true gdy wiersz nalezy do listy pasow.
+ */
 bool czyWierszJestPasem(int wiersz, const UstawieniaTrudnosci& ustawienia);

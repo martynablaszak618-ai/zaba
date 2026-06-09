@@ -1,21 +1,30 @@
-// Ta dyrektywa pilnuje, aby plik byl dolaczony tylko raz.
+/**
+ * @file Zaba.h
+ * @brief Klasa gracza (zaba) — pozycja i ruch po siatce planszy.
+ */
+
 #pragma once
 
-// Ta klasa reprezentuje gracza (czyli abe) i jej ruch.
+/** @brief Reprezentuje gracza i obsluguje jego ruch po planszy. */
 class Zaba {
 public:
-    // Ustawia pozycje poczatkowa zaby na planszy.
+    /** @brief Ustawia pozycje startowa zaby. @param xStart Kolumna. @param yStart Wiersz. */
     void ustawPozycjeStartowa(int xStart, int yStart);
 
-    // Przesuwa abe o podany krok: dx w lewo/prawo, dy w gore/dol (np. dy=1 to gora).
+    /**
+     * @brief Przesuwa zabe o podany krok.
+     * @param dx Przesuniecie w poziomie (-1 lewo, 1 prawo).
+     * @param dy Przesuniecie w pionie (1 gora, -1 dol).
+     * @param krok Liczba pol (domyslnie 1).
+     */
     void ruch(int dx, int dy, int krok = 1);
 
-    // Koryguje pozycje, aby zaba nie wyszla poza plansze.
+    /** @brief Ogranicza pozycje zaby do granic planszy. */
     void ograniczDoPlanszy(int szerokoscPlanszy, int wysokoscPlanszy);
 
-    // Zwraca aktualna wspolrzedna X zaby.
+    /** @return Aktualna wspolrzedna X (kolumna). */
     int pobierzX() const;
-    // Zwraca aktualna wspolrzedna Y zaby.
+    /** @return Aktualna wspolrzedna Y (wiersz). */
     int pobierzY() const;
 
 private:

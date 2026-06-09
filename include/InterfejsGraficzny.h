@@ -1,4 +1,8 @@
-// Ta dyrektywa zapobiega wielokrotnemu dolaczaniu pliku.
+/**
+ * @file InterfejsGraficzny.h
+ * @brief Glowne okno aplikacji Qt — rysowanie i obsluga wejscia.
+ */
+
 #pragma once
 
 // Dolaczamy silnik logiki gry, ktory bedzie obslugiwany przez GUI.
@@ -15,18 +19,21 @@
 // Qt: bazowa klasa widzetu (okna).
 #include <QWidget>
 
-// Klasa reprezentuje glowne okno aplikacji i caly interfejs.
+/**
+ * @brief Glowne okno gry — warstwa prezentacji (Qt Widgets).
+ * @details Deleguje logike do obiektu Gra; rysuje menu, plansze i ekran koncowy.
+ */
 class InterfejsGraficzny : public QWidget {
 public:
-    // Konstruktor okna; mozna podac rodzica Qt (domyslnie brak).
+    /** @brief Tworzy okno, timer odswiezania i obszary przyciskow. */
     explicit InterfejsGraficzny(QWidget* rodzic = nullptr);
 
 protected:
-    // Metoda wywolywana przez Qt, gdy okno trzeba narysowac.
+    /** @brief Rysuje menu, rozgrywke lub ekran koncowy. */
     void paintEvent(QPaintEvent* zdarzenie) override;
-    // Metoda obsluguje klikniecia myszy.
+    /** @brief Obsluguje klikniecia w menu i ekranie koncowym. */
     void mousePressEvent(QMouseEvent* zdarzenie) override;
-    // Metoda obsluguje klawisze klawiatury.
+    /** @brief Obsluguje sterowanie W/A/S/D i Escape. */
     void keyPressEvent(QKeyEvent* zdarzenie) override;
 
 private:

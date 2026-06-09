@@ -1,0 +1,28 @@
+# Konfiguracja Doxygen dla projektu Zaba na ulicy
+
+PROJECT_NAME           = "Zaba na ulicy"
+PROJECT_BRIEF          = "Gra zrecznosciowa w C++/Qt"
+OUTPUT_DIRECTORY       = docs/doxygen
+CREATE_SUBDIRS         = NO
+OUTPUT_LANGUAGE        = Polish
+
+INPUT                  = include src/main.cpp
+RECURSIVE              = NO
+FILE_PATTERNS          = *.h *.cpp
+EXCLUDE_PATTERNS       = */build/*
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = NO
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+HTML_OUTPUT            = html
+
+USE_MDFILE_AS_MAINPAGE = docs/DOKUMENTACJA_OPISOWA.md
+
+QUIET                  = NO
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES

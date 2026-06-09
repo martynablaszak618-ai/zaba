@@ -1,4 +1,8 @@
-// Ta dyrektywa zapobiega wielokrotnemu dolaczaniu pliku.
+/**
+ * @file Droga.h
+ * @brief Cala droga — zbior pasow ruchu na planszy.
+ */
+
 #pragma once
 
 // Potrzebujemy klasy pojedynczego pasa.
@@ -11,20 +15,26 @@
 // Biblioteka list dynamicznych.
 #include <vector>
 
-// Klasa reprezentuje cala droge (czyli zbior wielu pasow ruchu).
+/** @brief Reprezentuje cala droge jako zbior pasow ruchu. */
 class Droga {
 public:
-    // Buduje droge na podstawie ustawien i rozmiarow planszy.
+    /**
+     * @brief Buduje pasy drogi na podstawie ustawien poziomu.
+     * @param ustawienia Parametry trudnosci (wiersze pasow, predkosci).
+     * @param szerokoscPlanszy Szerokosc planszy w pikselach.
+     * @param wysokoscPlanszy Wysokosc planszy w pikselach.
+     * @param wysokoscPola Rozmiar jednego pola siatki [px].
+     */
     void skonfiguruj(const UstawieniaTrudnosci& ustawienia,
                      float szerokoscPlanszy,
                      float wysokoscPlanszy,
                      float wysokoscPola);
 
-    // Aktualizuje wszystkie pasy drogi.
+    /** @brief Aktualizuje wszystkie pasy o jedna klatke symulacji. */
     void aktualizuj(float deltaSekundy, std::mt19937& generator);
-    // Zwraca liste pasow drogi.
+    /** @return Lista pasow drogi. */
     const std::vector<PasRuchu>& pobierzPasy() const;
-    // Zwraca liste numerow wierszy, ktore sa pasami drogi.
+    /** @return Numery wierszy logicznych bedacych pasami. */
     const std::vector<int>& pobierzWierszePasow() const;
 
 private:

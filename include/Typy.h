@@ -1,7 +1,11 @@
-// Ta dyrektywa sprawia, ze ten plik zostanie dolaczony tylko raz.
+/**
+ * @file Typy.h
+ * @brief Wspolne typy wyliczeniowe gry (stan, trudnosc, kierunek).
+ */
+
 #pragma once
 
-// Ten enum opisuje, na jakim ekranie/stanie aktualnie jest gra.
+/** @brief Stan aplikacji / ekranu gry. */
 enum class StanGry {
     MENU,       // Gracz widzi menu glowne i wybiera poziom.
     W_TRAKCIE,  // Trwa aktywna rozgrywka.
@@ -9,14 +13,14 @@ enum class StanGry {
     PRZEGRANA   // Gra zakonczona porazka (np. kolizja).
 };
 
-// Ten enum przechowuje poziom trudnosci wybrany przez gracza.
+/** @brief Poziom trudnosci wybrany przez gracza. */
 enum class PoziomTrudnosci {
     LATWY,   // Najlatwiejsza konfiguracja.
     SREDNI,  // Srednia konfiguracja.
     TRUDNY   // Najtrudniejsza konfiguracja.
 };
 
-// Ten enum mowi, w ktora strone porusza sie samochod.
+/** @brief Kierunek ruchu samochodu na pasie. */
 enum class Kierunek {
     LEWO,   // Ruch samochodu w lewo.
     PRAWO   // Ruch samochodu w prawo.
