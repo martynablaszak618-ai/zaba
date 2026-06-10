@@ -1,0 +1,431 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.17.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Zaba na ulicy: Dokumentacja klasy Gra</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+mermaid.initialize({ startOnLoad: true, theme: theme });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Zaba na ulicy
+   </div>
+   <div id="projectbrief">Gra zrecznosciowa w C++/Qt</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Wygenerowano za pomocą Doxygen 1.17.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+  initMenu('',true);
+  init_search();
+});
+</script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1" style="position:absolute;right:8px;top:8px;height:36px;"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2" style="float:right">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Szukaj" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('class_gra.html','','class_gra-members'); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Wczytywanie...</div>
+<div class="SRStatus" id="Searching">Szukanie...</div>
+<div class="SRStatus" id="NoMatches">Brak dopasowań</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Dokumentacja klasy Gra</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Serce logiki gry — stan, zegar, ruch i warunki konca.  
+ <a href="#details">Więcej...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_gra_8h_source.html">Gra.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Metody publiczne</h2></td></tr>
+<tr class="memitem:a85a3fce34f62b6e87fbe6e9cf2419ca7" id="r_a85a3fce34f62b6e87fbe6e9cf2419ca7"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a85a3fce34f62b6e87fbe6e9cf2419ca7">Gra</a> ()</td></tr>
+<tr class="memdesc:a85a3fce34f62b6e87fbe6e9cf2419ca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inicjalizuje generator losowy i stan MENU.  <br /></td></tr>
+<tr class="memitem:add546de642e89cffa04e38f4bce6fee7" id="r_add546de642e89cffa04e38f4bce6fee7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#add546de642e89cffa04e38f4bce6fee7">rozpocznijGre</a> (<a class="el" href="_typy_8h.html#aa8096247cfb7c569631b655e63b6205b">PoziomTrudnosci</a> poziom)</td></tr>
+<tr class="memdesc:add546de642e89cffa04e38f4bce6fee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rozpoczyna nowa gre na wybranym poziomie trudnosci.  <br /></td></tr>
+<tr class="memitem:a5f3b029be6600b679ffa2cbb54f37ff6" id="r_a5f3b029be6600b679ffa2cbb54f37ff6"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a5f3b029be6600b679ffa2cbb54f37ff6">przejdzDoMenu</a> ()</td></tr>
+<tr class="memdesc:a5f3b029be6600b679ffa2cbb54f37ff6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Przechodzi do menu glownego.  <br /></td></tr>
+<tr class="memitem:a9cc536178abc0507951aea956aeb1b30" id="r_a9cc536178abc0507951aea956aeb1b30"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9cc536178abc0507951aea956aeb1b30">ruch</a> (int dx, int dy)</td></tr>
+<tr class="memdesc:a9cc536178abc0507951aea956aeb1b30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Przesuwa zabe o jedno pole.  <br /></td></tr>
+<tr class="memitem:aa982e054904c9bcaa9589942a1a23cac" id="r_aa982e054904c9bcaa9589942a1a23cac"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa982e054904c9bcaa9589942a1a23cac">aktualizujKrok</a> (float deltaSekundy)</td></tr>
+<tr class="memdesc:aa982e054904c9bcaa9589942a1a23cac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Aktualizuje symulacje o jedna klatke.  <br /></td></tr>
+<tr class="memitem:a3823f02332d264a638946729333f5145" id="r_a3823f02332d264a638946729333f5145"><td class="memItemLeft"><a class="el" href="_typy_8h.html#ae14b6786be080cb1e2d9e31eec50280d">StanGry</a>&#160;</td><td class="memItemRight"><a class="el" href="#a3823f02332d264a638946729333f5145">pobierzStan</a> () const</td></tr>
+<tr class="memitem:af5dd13ca5ebe8a1f3053dc2e84d10c0d" id="r_af5dd13ca5ebe8a1f3053dc2e84d10c0d"><td class="memItemLeft"><a class="el" href="_typy_8h.html#aa8096247cfb7c569631b655e63b6205b">PoziomTrudnosci</a>&#160;</td><td class="memItemRight"><a class="el" href="#af5dd13ca5ebe8a1f3053dc2e84d10c0d">pobierzPoziomTrudnosci</a> () const</td></tr>
+<tr class="memitem:a0a457130fc8bb791c209597e70dc71f3" id="r_a0a457130fc8bb791c209597e70dc71f3"><td class="memItemLeft">const <a class="el" href="class_zaba.html">Zaba</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a0a457130fc8bb791c209597e70dc71f3">pobierzZabe</a> () const</td></tr>
+<tr class="memitem:a65c209ee7f04cc958c9fea917806ca87" id="r_a65c209ee7f04cc958c9fea917806ca87"><td class="memItemLeft">const <a class="el" href="class_droga.html">Droga</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a65c209ee7f04cc958c9fea917806ca87">pobierzDroge</a> () const</td></tr>
+<tr class="memitem:a618bd1b2297dda9737c006f8ce29a711" id="r_a618bd1b2297dda9737c006f8ce29a711"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a618bd1b2297dda9737c006f8ce29a711">pobierzCzasSekundy</a> () const</td></tr>
+<tr class="memitem:a6b65c04993fb184dba57e1a7b85ab286" id="r_a6b65c04993fb184dba57e1a7b85ab286"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a6b65c04993fb184dba57e1a7b85ab286">pobierzSzerokoscSiatki</a> () const</td></tr>
+<tr class="memitem:adb9c8058ad696b7366ca1173f7995b06" id="r_adb9c8058ad696b7366ca1173f7995b06"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#adb9c8058ad696b7366ca1173f7995b06">pobierzWysokoscSiatki</a> () const</td></tr>
+<tr class="memitem:a2b4ac799b2e33919821c06d5d8317895" id="r_a2b4ac799b2e33919821c06d5d8317895"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a2b4ac799b2e33919821c06d5d8317895">pobierzRozmiarPola</a> () const</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Opis szczegółowy</h2>
+<div class="textblock"><p>Serce logiki gry — stan, zegar, ruch i warunki konca. </p>
+<p>Klasa nie uzywa Qt; moze byc testowana bez GUI (testy_logiki). </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Dokumentacja konstruktora i destruktora</h2>
+<a id="a85a3fce34f62b6e87fbe6e9cf2419ca7" name="a85a3fce34f62b6e87fbe6e9cf2419ca7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85a3fce34f62b6e87fbe6e9cf2419ca7">&#9670;&#160;</a></span>Gra()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Gra::Gra </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inicjalizuje generator losowy i stan MENU. </p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Dokumentacja funkcji składowych</h2>
+<a id="aa982e054904c9bcaa9589942a1a23cac" name="aa982e054904c9bcaa9589942a1a23cac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa982e054904c9bcaa9589942a1a23cac">&#9670;&#160;</a></span>aktualizujKrok()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Gra::aktualizujKrok </td>
+          <td>(</td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>deltaSekundy</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Aktualizuje symulacje o jedna klatke. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deltaSekundy</td><td>Czas od poprzedniej klatki [s]. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a618bd1b2297dda9737c006f8ce29a711" name="a618bd1b2297dda9737c006f8ce29a711"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a618bd1b2297dda9737c006f8ce29a711">&#9670;&#160;</a></span>pobierzCzasSekundy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Gra::pobierzCzasSekundy </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Zwraca</dt><dd>Czas rozgrywki w sekundach. </dd></dl>
+
+</div>
+</div>
+<a id="a65c209ee7f04cc958c9fea917806ca87" name="a65c209ee7f04cc958c9fea917806ca87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65c209ee7f04cc958c9fea917806ca87">&#9670;&#160;</a></span>pobierzDroge()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_droga.html">Droga</a> &amp; Gra::pobierzDroge </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Zwraca</dt><dd>Obiekt drogi (tylko odczyt). </dd></dl>
+
+</div>
+</div>
+<a id="af5dd13ca5ebe8a1f3053dc2e84d10c0d" name="af5dd13ca5ebe8a1f3053dc2e84d10c0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5dd13ca5ebe8a1f3053dc2e84d10c0d">&#9670;&#160;</a></span>pobierzPoziomTrudnosci()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_typy_8h.html#aa8096247cfb7c569631b655e63b6205b">PoziomTrudnosci</a> Gra::pobierzPoziomTrudnosci </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Zwraca</dt><dd>Wybrany poziom trudnosci. </dd></dl>
+
+</div>
+</div>
+<a id="a2b4ac799b2e33919821c06d5d8317895" name="a2b4ac799b2e33919821c06d5d8317895"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b4ac799b2e33919821c06d5d8317895">&#9670;&#160;</a></span>pobierzRozmiarPola()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Gra::pobierzRozmiarPola </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Zwraca</dt><dd>Rozmiar jednego pola [px]. </dd></dl>
+
+</div>
+</div>
+<a id="a3823f02332d264a638946729333f5145" name="a3823f02332d264a638946729333f5145"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3823f02332d264a638946729333f5145">&#9670;&#160;</a></span>pobierzStan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="_typy_8h.html#ae14b6786be080cb1e2d9e31eec50280d">StanGry</a> Gra::pobierzStan </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Zwraca</dt><dd>Aktualny stan gry (MENU, W_TRAKCIE, WYGRANA, PRZEGRANA). </dd></dl>
+
+</div>
+</div>
+<a id="a6b65c04993fb184dba57e1a7b85ab286" name="a6b65c04993fb184dba57e1a7b85ab286"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b65c04993fb184dba57e1a7b85ab286">&#9670;&#160;</a></span>pobierzSzerokoscSiatki()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Gra::pobierzSzerokoscSiatki </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Zwraca</dt><dd>Liczba kolumn siatki. </dd></dl>
+
+</div>
+</div>
+<a id="adb9c8058ad696b7366ca1173f7995b06" name="adb9c8058ad696b7366ca1173f7995b06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb9c8058ad696b7366ca1173f7995b06">&#9670;&#160;</a></span>pobierzWysokoscSiatki()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Gra::pobierzWysokoscSiatki </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Zwraca</dt><dd>Liczba wierszy siatki. </dd></dl>
+
+</div>
+</div>
+<a id="a0a457130fc8bb791c209597e70dc71f3" name="a0a457130fc8bb791c209597e70dc71f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a457130fc8bb791c209597e70dc71f3">&#9670;&#160;</a></span>pobierzZabe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="class_zaba.html">Zaba</a> &amp; Gra::pobierzZabe </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Zwraca</dt><dd>Obiekt zaby (tylko odczyt). </dd></dl>
+
+</div>
+</div>
+<a id="a5f3b029be6600b679ffa2cbb54f37ff6" name="a5f3b029be6600b679ffa2cbb54f37ff6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f3b029be6600b679ffa2cbb54f37ff6">&#9670;&#160;</a></span>przejdzDoMenu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Gra::przejdzDoMenu </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Przechodzi do menu glownego. </p>
+
+</div>
+</div>
+<a id="add546de642e89cffa04e38f4bce6fee7" name="add546de642e89cffa04e38f4bce6fee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add546de642e89cffa04e38f4bce6fee7">&#9670;&#160;</a></span>rozpocznijGre()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Gra::rozpocznijGre </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="_typy_8h.html#aa8096247cfb7c569631b655e63b6205b">PoziomTrudnosci</a></td>          <td class="paramname"><span class="paramname"><em>poziom</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Rozpoczyna nowa gre na wybranym poziomie trudnosci. </p>
+
+</div>
+</div>
+<a id="a9cc536178abc0507951aea956aeb1b30" name="a9cc536178abc0507951aea956aeb1b30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cc536178abc0507951aea956aeb1b30">&#9670;&#160;</a></span>ruch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Gra::ruch </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dx</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>dy</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Przesuwa zabe o jedno pole. </p>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dx</td><td><a class="el" href="_typy_8h.html#a1d4b9509db2e57a201881523eadf22c7" title="Kierunek ruchu samochodu na pasie.">Kierunek</a> poziomy (-1, 0, 1). </td></tr>
+    <tr><td class="paramname">dy</td><td><a class="el" href="_typy_8h.html#a1d4b9509db2e57a201881523eadf22c7" title="Kierunek ruchu samochodu na pasie.">Kierunek</a> pionowy (1 = gora, -1 = dol). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>Dokumentacja dla tej klasy została wygenerowana z pliku:<ul>
+<li>include/<a class="el" href="_gra_8h_source.html">Gra.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="class_gra.html">Gra</a></li>
+    <li class="footer">Wygenerowano za pomocą <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
+  </ul>
+</div>
+</body>
+</html>

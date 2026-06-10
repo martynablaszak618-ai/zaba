@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['paintevent_0',['paintEvent',['../class_interfejs_graficzny.html#a402a95dd00008e86f911e6c54f3da9b9',1,'InterfejsGraficzny']]],
+  ['pasruchu_1',['PasRuchu',['../class_pas_ruchu.html',1,'PasRuchu'],['../class_pas_ruchu.html#a2ebf3c1703abd6034ebe508a0081f300',1,'PasRuchu::PasRuchu()']]],
+  ['pasruchu_2eh_2',['PasRuchu.h',['../_pas_ruchu_8h.html',1,'']]],
+  ['pobierzczassekundy_3',['pobierzCzasSekundy',['../class_gra.html#a618bd1b2297dda9737c006f8ce29a711',1,'Gra']]],
+  ['pobierzdroge_4',['pobierzDroge',['../class_gra.html#a65c209ee7f04cc958c9fea917806ca87',1,'Gra']]],
+  ['pobierzostatnipasdrogi_5',['pobierzOstatniPasDrogi',['../_ustawienia_trudnosci_8h.html#a1461dfcdb6aabaac50ba634edc02fb73',1,'UstawieniaTrudnosci.h']]],
+  ['pobierzpasy_6',['pobierzPasy',['../class_droga.html#ae71f80650e8f1f7bc92d0e64a13a96d2',1,'Droga']]],
+  ['pobierzpoziomtrudnosci_7',['pobierzPoziomTrudnosci',['../class_gra.html#af5dd13ca5ebe8a1f3053dc2e84d10c0d',1,'Gra']]],
+  ['pobierzrozmiarpola_8',['pobierzRozmiarPola',['../class_gra.html#a2b4ac799b2e33919821c06d5d8317895',1,'Gra']]],
+  ['pobierzsamochody_9',['pobierzSamochody',['../class_pas_ruchu.html#a97144c28c96b6818b203a6ae3e43a805',1,'PasRuchu']]],
+  ['pobierzstan_10',['pobierzStan',['../class_gra.html#a3823f02332d264a638946729333f5145',1,'Gra']]],
+  ['pobierzszerokoscsiatki_11',['pobierzSzerokoscSiatki',['../class_gra.html#a6b65c04993fb184dba57e1a7b85ab286',1,'Gra']]],
+  ['pobierzustawieniatrudnosci_12',['pobierzUstawieniaTrudnosci',['../_ustawienia_trudnosci_8h.html#ac6e3d25e58a6cdbc6ef96b263db1a4d4',1,'UstawieniaTrudnosci.h']]],
+  ['pobierzwariantkoloru_13',['pobierzWariantKoloru',['../class_samochod.html#aecf7950fa0a1336c45480cd9c71a9130',1,'Samochod']]],
+  ['pobierzwierszepasow_14',['pobierzWierszePasow',['../class_droga.html#a7b54236c219d971255de655634a0984b',1,'Droga']]],
+  ['pobierzwierszmety_15',['pobierzWierszMety',['../_ustawienia_trudnosci_8h.html#a763ab8a8d787e4e5b32748e2de6b2097',1,'UstawieniaTrudnosci.h']]],
+  ['pobierzwysokoscsiatki_16',['pobierzWysokoscSiatki',['../class_gra.html#adb9c8058ad696b7366ca1173f7995b06',1,'Gra']]],
+  ['pobierzx_17',['pobierzX',['../class_samochod.html#adbc8753af28276d6f5709e1476b3968b',1,'Samochod::pobierzX()'],['../class_zaba.html#a43c9a0a8531f6eab7d7f09e9f9262be9',1,'Zaba::pobierzX()']]],
+  ['pobierzy_18',['pobierzY',['../class_samochod.html#ad892c37e634c0e9060cf0eb030688ed5',1,'Samochod::pobierzY()'],['../class_zaba.html#a12686af9b4d5194c616fb94cd8de0bf9',1,'Zaba::pobierzY()']]],
+  ['pobierzzabe_19',['pobierzZabe',['../class_gra.html#a0a457130fc8bb791c209597e70dc71f3',1,'Gra']]],
+  ['poziomtrudnosci_20',['PoziomTrudnosci',['../_typy_8h.html#aa8096247cfb7c569631b655e63b6205b',1,'Typy.h']]],
+  ['prawo_21',['PRAWO',['../_typy_8h.html#a1d4b9509db2e57a201881523eadf22c7a345f60859ecbc63fe2194df9b18b6a77',1,'Typy.h']]],
+  ['predkoscsamochodow_22',['predkoscSamochodow',['../struct_ustawienia_trudnosci.html#a3c23fc78e04e97e33e274ea1bada7cff',1,'UstawieniaTrudnosci']]],
+  ['przegrana_23',['PRZEGRANA',['../_typy_8h.html#ae14b6786be080cb1e2d9e31eec50280da9716918b6176a002be0bbf98ae775176',1,'Typy.h']]],
+  ['przejdzdomenu_24',['przejdzDoMenu',['../class_gra.html#a5f3b029be6600b679ffa2cbb54f37ff6',1,'Gra']]]
+];

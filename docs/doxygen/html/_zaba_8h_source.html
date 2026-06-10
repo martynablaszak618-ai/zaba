@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.17.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Zaba na ulicy: Plik źródłowy include/Zaba.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="codefolding.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default';
+mermaid.initialize({ startOnLoad: true, theme: theme });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Zaba na ulicy
+   </div>
+   <div id="projectbrief">Gra zrecznosciowa w C++/Qt</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Wygenerowano za pomocą Doxygen 1.17.0 -->
+<script type="text/javascript">
+let searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', codefold.init);
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', () => {
+  initMenu('',true);
+  init_search();
+});
+</script>
+<div id="main-nav-mobile">
+<div class="sm sm-dox"><input id="main-menu-state" type="checkbox"/>
+<label class="main-menu-btn" for="main-menu-state">
+<span class="main-menu-btn-icon"></span> Toggle main menu visibility</label>
+<span id="searchBoxPos1" style="position:absolute;right:8px;top:8px;height:36px;"></span>
+</div>
+</div><!-- main-nav-mobile -->
+<div id="main-nav">
+  <ul class="sm sm-dox" id="main-menu">
+    <li id="searchBoxPos2" style="float:right">
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect" class="search-icon" onmouseover="return searchBox.OnSearchSelectShow()" onmouseout="return searchBox.OnSearchSelectHide()"><span class="search-icon-dropdown"></span></span>
+          <input type="text" id="MSearchField" value="" placeholder="Szukaj" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><div id="MSearchCloseImg" class="close-icon"></div></a>
+          </span>
+        </div>
+    </li>
+  </ul>
+</div><!-- main-nav -->
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded',() => { initNavTree('_zaba_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Wczytywanie...</div>
+<div class="SRStatus" id="Searching">Szukanie...</div>
+<div class="SRStatus" id="NoMatches">Brak dopasowań</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Zaba.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="_zaba_8h.html">Idź do dokumentacji tego pliku.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span></div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_zaba.html">    9</a></span><span class="keyword">class </span><a class="code hl_class" href="class_zaba.html">Zaba</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_zaba.html#aac4520e408a6de4139e5973336433204">   12</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_zaba.html#aac4520e408a6de4139e5973336433204">ustawPozycjeStartowa</a>(<span class="keywordtype">int</span> xStart, <span class="keywordtype">int</span> yStart);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="class_zaba.html#a8de592ff33bc39492e11f0b3bd49cdf3">   20</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_zaba.html#a8de592ff33bc39492e11f0b3bd49cdf3">ruch</a>(<span class="keywordtype">int</span> dx, <span class="keywordtype">int</span> dy, <span class="keywordtype">int</span> krok = 1);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="class_zaba.html#aa054e8585e52cd25f56d5c0b1867e24f">   23</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_zaba.html#aa054e8585e52cd25f56d5c0b1867e24f">ograniczDoPlanszy</a>(<span class="keywordtype">int</span> szerokoscPlanszy, <span class="keywordtype">int</span> wysokoscPlanszy);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="class_zaba.html#a43c9a0a8531f6eab7d7f09e9f9262be9">   26</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="class_zaba.html#a43c9a0a8531f6eab7d7f09e9f9262be9">pobierzX</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="class_zaba.html#a12686af9b4d5194c616fb94cd8de0bf9">   28</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="class_zaba.html#a12686af9b4d5194c616fb94cd8de0bf9">pobierzY</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">// Pole przechowuje wspolrzedna pozioma.</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">int</span> x = 0;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="comment">// Pole przechowuje wspolrzedna pionowa.</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">int</span> y = 0;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+</div>
+<div class="ttc" id="aclass_zaba_html"><div class="ttname"><a href="class_zaba.html">Zaba</a></div><div class="ttdoc">Reprezentuje gracza i obsluguje jego ruch po planszy.</div><div class="ttdef"><b>Definicja</b> Zaba.h:9</div></div>
+<div class="ttc" id="aclass_zaba_html_a12686af9b4d5194c616fb94cd8de0bf9"><div class="ttname"><a href="class_zaba.html#a12686af9b4d5194c616fb94cd8de0bf9">Zaba::pobierzY</a></div><div class="ttdeci">int pobierzY() const</div></div>
+<div class="ttc" id="aclass_zaba_html_a43c9a0a8531f6eab7d7f09e9f9262be9"><div class="ttname"><a href="class_zaba.html#a43c9a0a8531f6eab7d7f09e9f9262be9">Zaba::pobierzX</a></div><div class="ttdeci">int pobierzX() const</div></div>
+<div class="ttc" id="aclass_zaba_html_a8de592ff33bc39492e11f0b3bd49cdf3"><div class="ttname"><a href="class_zaba.html#a8de592ff33bc39492e11f0b3bd49cdf3">Zaba::ruch</a></div><div class="ttdeci">void ruch(int dx, int dy, int krok=1)</div><div class="ttdoc">Przesuwa zabe o podany krok.</div></div>
+<div class="ttc" id="aclass_zaba_html_aa054e8585e52cd25f56d5c0b1867e24f"><div class="ttname"><a href="class_zaba.html#aa054e8585e52cd25f56d5c0b1867e24f">Zaba::ograniczDoPlanszy</a></div><div class="ttdeci">void ograniczDoPlanszy(int szerokoscPlanszy, int wysokoscPlanszy)</div><div class="ttdoc">Ogranicza pozycje zaby do granic planszy.</div></div>
+<div class="ttc" id="aclass_zaba_html_aac4520e408a6de4139e5973336433204"><div class="ttname"><a href="class_zaba.html#aac4520e408a6de4139e5973336433204">Zaba::ustawPozycjeStartowa</a></div><div class="ttdeci">void ustawPozycjeStartowa(int xStart, int yStart)</div><div class="ttdoc">Ustawia pozycje startowa zaby.</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="_zaba_8h.html">Zaba.h</a></li>
+    <li class="footer">Wygenerowano za pomocą <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
+  </ul>
+</div>
+</body>
+</html>
